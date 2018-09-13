@@ -1,0 +1,38 @@
+{
+	"name": "mvccore/ext-form-field-file",
+	"type": "library",
+	"description": "MvcCore - Extension - Form - Field - File - form field input:file to upload file(s) and uploaded files validation.",
+	"keywords": [
+		"mvc", 
+		"mvccore", 
+		"framework", 
+		"extension", 
+		"plugin", 
+		"plug-in", 
+		"ext", 
+		"mvccore", 
+		"form", 
+		"forms", 
+		"webform", 
+		"html5", 
+		"input", 
+		"inputs", 
+		"file", 
+		"files", 
+		"upload",
+		"multiple"
+	],
+	"license": ["BSD-3-Clause"],
+	"authors": [{
+		"name": "Tom Flidr",
+		"homepage": "https://github.com/tomFlidr"
+	}],
+	"require": {
+		"php": ">=5.3.0",
+		"mvccore/mvccore": "^4.3.1"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"minimum-stability": "stable"
+}
