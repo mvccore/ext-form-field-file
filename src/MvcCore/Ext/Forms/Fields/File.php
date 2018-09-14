@@ -96,6 +96,14 @@ class File
 	 * @return string
 	 */
 	public function RenderControl () {
+		if ($this->minCount !== NULL) 
+			$this->SetControlAttr('data-min-count', $this->minCount);
+		if ($this->maxCount !== NULL) 
+			$this->SetControlAttr('data-max-count', $this->maxCount);
+		if ($this->minSize !== NULL) 
+			$this->SetControlAttr('data-min-size', $this->minSize);
+		if ($this->maxSize !== NULL) 
+			$this->SetControlAttr('data-max-size', $this->maxSize);
 		$attrsStr = $this->renderControlAttrsWithFieldVars([
 			'accept',
 			'capture',

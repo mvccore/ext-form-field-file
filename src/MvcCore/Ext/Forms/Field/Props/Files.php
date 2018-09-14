@@ -65,6 +65,42 @@ trait Files
 	protected $allowedFileNameChars = NULL;
 
 	/**
+	 * Minumum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @var int|NULL
+	 */
+	protected $minCount = NULL;
+
+	/**
+	 * Maximum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @var int|NULL
+	 */
+	protected $maxCount = NULL;
+
+	/**
+	 * Minumum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @var int|NULL
+	 */
+	protected $minSize = NULL;
+
+	/**
+	 * Maximum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @var int|NULL
+	 */
+	protected $maxSize = NULL;
+
+	/**
 	 * Get list of allowed file mimetypes or file extensions. 
 	 * All defined file mimetypes are checked with `finfo` PHP extension and checked by
 	 * allowed file extensions for defined mimetype.
@@ -145,6 +181,102 @@ trait Files
 	 */
 	public function & SetAllowedFileNameChars ($allowedFileNameChars) {
 		$this->allowedFileNameChars = $allowedFileNameChars;
+		return $this;
+	}
+
+	/**
+	 * Get minumum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @return int|NULL
+	 */
+	public function GetMinCount () {
+		return $this->minCount;
+	}
+
+	/**
+	 * Set minumum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param int|NULL $minCount
+	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
+	 */
+	public function & SetMinCount ($minCount) {
+		$this->minCount = $minCount === NULL ? NULL : intval($minCount);
+		return $this;
+	}
+
+	/**
+	 * Get maximum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @return int|NULL
+	 */
+	public function GetMaxCount () {
+		return $this->maxCount;
+	}
+
+	/**
+	 * Set maximum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param int|NULL $maxCount
+	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
+	 */
+	public function & SetMaxCount ($maxCount) {
+		$this->maxCount = $maxCount === NULL ? NULL : intval($maxCount);
+		return $this;
+	}
+
+	/**
+	 * Get minumum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @return int|NULL
+	 */
+	public function GetMinSize () {
+		return $this->minSize;
+	}
+
+	/**
+	 * Set minumum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param int|NULL $minSize
+	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
+	 */
+	public function & SetMinSize ($minSize) {
+		$this->minSize = $minSize === NULL ? NULL : intval($minSize);
+		return $this;
+	}
+
+	/**
+	 * Get maximum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @return int|NULL
+	 */
+	public function GetMaxSize () {
+		return $this->maxSize;
+	}
+
+	/**
+	 * Set maximum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param int|NULL $maxSize
+	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
+	 */
+	public function & SetMaxSize ($maxSize) {
+		$this->maxSize = $maxSize === NULL ? NULL : intval($maxSize);
 		return $this;
 	}
 }

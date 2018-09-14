@@ -6,6 +6,10 @@
 
 MvcCore form extension with `input` type `file` and file(s) upload validation.
 
+This upload has no backward compatible javascript or flash inside. It's strictly 
+HTML5 with no additional info displaying. You can extend this field to do it.
+
+
 ## Installation
 ```shell
 composer require mvccore/ext-form-field-file
@@ -45,7 +49,9 @@ $form = (new \MvcCore\Ext\Form($controller))->SetId('demo');
 $photos = new \MvcCore\Ext\Forms\Fields\Time([
 	'name'		=> 'photos',
 	'label'		=> 'Add your photos:',
-	'accept'	=> 'image/*'
+	'accept'	=> 'image/*',
+	'maxCount'	=> 5, // max. uploaded photos
+	'maxSize'	=> 2097152, // max. 2 MB in binary for one item
 ]);
 ...
 $form->AddFields($photos);

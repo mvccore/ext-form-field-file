@@ -27,16 +27,20 @@ class Files
 	use \MvcCore\Ext\Forms\Field\Props\Multiple;
 	use \MvcCore\Ext\Forms\Field\Props\Files;
 
-	const UPLOAD_ERR_NOT_POSTED		=  9; 
-	const UPLOAD_ERR_NOT_FILE		= 10;
-	const UPLOAD_ERR_EMPTY_FILE		= 11;
-	const UPLOAD_ERR_TOO_LARGE_FILE	= 12;
-	const UPLOAD_ERR_NO_FILEINFO	= 13;						
-	const UPLOAD_ERR_NO_MIMES_EXTS	= 14;
-	const UPLOAD_ERR_UNKNOWN_ACCEPT	= 15;
-	const UPLOAD_ERR_UNKNOWN_EXT	= 16;
-	const UPLOAD_ERR_UNKNOWN_MIME	= 17;
-	const UPLOAD_ERR_NOT_ACCEPTED	= 18;
+	const UPLOAD_ERR_MIN_FILES		=  9;
+	const UPLOAD_ERR_MAX_FILES		= 10;
+	const UPLOAD_ERR_NOT_POSTED		= 11; 
+	const UPLOAD_ERR_NOT_FILE		= 12;
+	const UPLOAD_ERR_EMPTY_FILE		= 13;
+	const UPLOAD_ERR_TOO_LARGE_FILE	= 14;
+	const UPLOAD_ERR_MIN_SIZE		= 15;
+	const UPLOAD_ERR_MAX_SIZE		= 16;
+	const UPLOAD_ERR_NO_FILEINFO	= 17;						
+	const UPLOAD_ERR_NO_MIMES_EXTS	= 18;
+	const UPLOAD_ERR_UNKNOWN_ACCEPT	= 19;
+	const UPLOAD_ERR_UNKNOWN_EXT	= 20;
+	const UPLOAD_ERR_UNKNOWN_MIME	= 21;
+	const UPLOAD_ERR_NOT_ACCEPTED	= 22;
 
 	/**
 	 * Validation failure message template definitions.
@@ -52,19 +56,23 @@ class Files
 		UPLOAD_ERR_NO_TMP_DIR			=> "Missing a temporary folder for uploaded file.",						// 6
 		UPLOAD_ERR_CANT_WRITE			=> "Failed to write uploaded file to disk.",							// 7
 		UPLOAD_ERR_EXTENSION			=> "A PHP extension stopped the file upload.",							// 8
-		self::UPLOAD_ERR_NOT_POSTED		=> "The file wasn't uploaded via HTTP POST.",							// 9
-		self::UPLOAD_ERR_NOT_FILE		=> "The uploaded file is not valid file.",								// 10
-		self::UPLOAD_ERR_EMPTY_FILE		=> "The uploaded file is empty.",										// 11
-		self::UPLOAD_ERR_TOO_LARGE_FILE	=> "The uploaded file is too large.",									// 12
+		self::UPLOAD_ERR_MIN_FILES		=> "Field allows to upload `{1}` file(s) at minimum.",					// 9
+		self::UPLOAD_ERR_MAX_FILES		=> "Field allows to upload `{1}` file(s) at maximum.",					// 10
+		self::UPLOAD_ERR_NOT_POSTED		=> "The file wasn't uploaded via HTTP POST.",							// 11
+		self::UPLOAD_ERR_NOT_FILE		=> "The uploaded file is not valid file.",								// 12
+		self::UPLOAD_ERR_EMPTY_FILE		=> "The uploaded file is empty.",										// 13
+		self::UPLOAD_ERR_TOO_LARGE_FILE	=> "The uploaded file is too large.",									// 14
+		self::UPLOAD_ERR_MIN_SIZE		=> "One of uploaded files is too small. Min. required size is `{1}`.",	// 15
+		self::UPLOAD_ERR_MAX_SIZE		=> "One of uploaded files is too large. Max. allowed size is `{1}`.",	// 16
 		self::UPLOAD_ERR_NO_FILEINFO	=> "A PHP function for magic bytes "
-											. "recognition is missing (`finfo`).",								// 13
+											. "recognition is missing (`finfo`).",								// 17
 		self::UPLOAD_ERR_NO_MIMES_EXTS	=> "MvcCore extension library to get mimetype(s) by "
 											. "file extension and backwards is not "
-											. "installed (`mvccore/ext-tool-mimetype-extension`).",				// 14
-		self::UPLOAD_ERR_UNKNOWN_ACCEPT	=> "Unknown accept atribute value found: `{1}`.",						// 15
-		self::UPLOAD_ERR_UNKNOWN_EXT	=> "Unknown file mimetype found for accept file extension: `{1}`.",		// 16
-		self::UPLOAD_ERR_UNKNOWN_MIME	=> "Unknown file extension found for accept file mimetype: `{1}`.",		// 17
-		self::UPLOAD_ERR_NOT_ACCEPTED	=> "The uploaded file is not in the expected file format (`{1}`).",		// 18
+											. "installed (`mvccore/ext-tool-mimetype-extension`).",				// 18
+		self::UPLOAD_ERR_UNKNOWN_ACCEPT	=> "Unknown accept atribute value found: `{1}`.",						// 19
+		self::UPLOAD_ERR_UNKNOWN_EXT	=> "Unknown file mimetype found for accept file extension: `{1}`.",		// 20
+		self::UPLOAD_ERR_UNKNOWN_MIME	=> "Unknown file extension found for accept file mimetype: `{1}`.",		// 21
+		self::UPLOAD_ERR_NOT_ACCEPTED	=> "The uploaded file is not in the expected file format (`{1}`).",		// 22
 
 	];
 
@@ -135,6 +143,34 @@ class Files
 		} else if ($this->allowedFileNameChars === NULL && $fieldAllowedFileNameChars === NULL) {
 			$this->allowedFileNameChars = static::ALLOWED_FILE_NAME_CHARS_DEFAULT;
 		}
+
+		$fieldMinCount = $field->GetMinCount();
+		if ($fieldMinCount !== NULL) {
+			$this->minCount = $fieldMinCount;
+		} else if ($this->minCount !== NULL && $fieldMinCount === NULL) {
+			$field->SetMinCount($this->minCount);
+		}
+
+		$fieldMaxCount = $field->GetMaxCount();
+		if ($fieldMaxCount !== NULL) {
+			$this->maxCount = $fieldMaxCount;
+		} else if ($this->maxCount !== NULL && $fieldMaxCount === NULL) {
+			$field->SetMaxCount($this->maxCount);
+		}
+
+		$fieldMinSize = $field->GetMinSize();
+		if ($fieldMinSize !== NULL) {
+			$this->minSize = $fieldMinSize;
+		} else if ($this->minSize !== NULL && $fieldMinSize === NULL) {
+			$field->SetMinSize($this->minSize);
+		}
+
+		$fieldMaxSize = $field->GetMaxSize();
+		if ($fieldMaxSize !== NULL) {
+			$this->maxSize = $fieldMaxSize;
+		} else if ($this->maxSize !== NULL && $fieldMaxSize === NULL) {
+			$field->SetMaxSize($this->maxSize);
+		}
 		
 		return parent::SetField($field);
 	}
@@ -197,7 +233,13 @@ class Files
 				//'extension' is completed later in `$this->validateSanitizeFileNameAndAddFileExt();`
 			];
 		}
-		if ($this->files) return TRUE;
+		$filesCount = count($this->files);
+		if ($this->minCount !== NULL && $filesCount < $this->minCount) 
+			return $this->handlePhpUploadError(self::UPLOAD_ERR_MIN_FILES, [$this->minCount]);
+		if ($this->maxCount !== NULL && $filesCount > $this->maxCount) 
+			return $this->handlePhpUploadError(self::UPLOAD_ERR_MAX_FILES, [$this->maxCount]);
+		if ($filesCount > 0) 
+			return TRUE;
 		return $this->handlePhpError(UPLOAD_ERR_NO_FILE);
 	}
 
@@ -281,6 +323,14 @@ class Files
 			return $this->handlePhpUploadError(self::UPLOAD_ERR_EMPTY_FILE);
 		if ($fileSize === FALSE)
 			return $this->handlePhpUploadError(self::UPLOAD_ERR_TOO_LARGE_FILE);
+		if ($this->minSize !== NULL && $fileSize < $this->minSize)
+			return $this->handlePhpUploadError(
+				self::UPLOAD_ERR_MIN_SIZE, [$this->getBytesInHumanForm($this->minSize)]
+			);
+		if ($this->maxSize !== NULL && $fileSize > $this->maxSize)
+			return $this->handlePhpUploadError(
+				self::UPLOAD_ERR_MAX_SIZE, [$this->getBytesInHumanForm($this->maxSize)]
+			);
 		$file->size = $fileSize;
 		return TRUE;
 	}
@@ -373,5 +423,16 @@ class Files
 				@unlink($file->tmpFullPath);
 		}
 		return NULL;
+	}
+
+	/**
+	 * Converts a long string of bytes into a readable format e.g KB, MB, GB, TB, YB
+	 * @param int $bytes num The number of bytes.
+	 * @return string
+	 */
+	protected function getBytesInHumanForm ($bytes = 0) {
+		$i = floor(log($bytes) / log(1024));
+		$sizes = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+		return sprintf('%.02F', $bytes / pow(1024, $i)) * 1 . ' ' . $sizes[$i];
 	}
 }
