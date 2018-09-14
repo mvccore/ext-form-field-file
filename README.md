@@ -4,17 +4,49 @@
 [![License](https://img.shields.io/badge/Licence-BSD-brightgreen.svg?style=plastic)](https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md)
 ![PHP Version](https://img.shields.io/badge/PHP->=5.3-brightgreen.svg?style=plastic)
 
-MvcCore form extension with input type file and file upload validation.
+MvcCore form extension with `input` type `file` and file(s) upload validation.
 
 ## Installation
 ```shell
 composer require mvccore/ext-form-field-file
 ```
 
+## Fields And Default Validators
+- `input:file`
+	- `Files`
+		- **configured by default**
+		- validate submitted file or multiple files by checking:
+			- build in PHP upload errors (max. POST size atc...)
+			- if file is not any system file and if it is realy uploaded file (`is_uploaded_file()`, is_file()`, `filesize()`)
+			- allowed characters in filename, this validator automaticly sanitize uploaded filename every time
+			- `accept` attribute with allowed mime types by uploaded file(s) magic bytes
+			  (or by extension in `accept` attribute, converted on server side to mime type to check magic bytes)
+			  
 ## Features
-
-## Examples
-- [**Example - CD Collection (mvccore/example-cdcol)**](https://github.com/mvccore/example-cdcol)
-- [**Application - Questionnaires (mvccore/app-questionnaires)**](https://github.com/mvccore/app-questionnaires)
+- always server side checked attributes `required`, `disabled` and `readonly`
+- all HTML5 specific and global atributes (by [Mozilla Development Network Docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference))
+- every field has it's build-in specific validator described above
+- every build-in validator adds form error (when necessary) into session
+  and than all errors are displayed/rendered and cleared from session on error page, 
+  where user is redirected after submit
+- any field is possible to render naturally or with custom template for specific field class/instance
+- very extensible field classes - every field has public template methods:
+	- `SetForm()`		- called immediatelly after field instance is added into form instance
+	- `PreDispatch()`	- called immediatelly before any field instance rendering type
+	- `Render()`		- called on every instance in form instance rendering process
+		- submethods: `RenderNaturally()`, `RenderTemplate()`, `RenderControl()`, `RenderLabel()` ...
+	- `Submit()`		- called on every instance when form is submitted
 
 ## Basic Example
+
+```php
+$form = (new \MvcCore\Ext\Form($controller))->SetId('demo');
+...
+$photos = new \MvcCore\Ext\Forms\Fields\Time([
+	'name'		=> 'photos',
+	'label'		=> 'Add your photos:',
+	'accept'	=> 'image/*'
+]);
+...
+$form->AddFields($photos);
+```
