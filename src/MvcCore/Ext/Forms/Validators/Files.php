@@ -77,6 +77,20 @@ class Files
 	];
 
 	/**
+	 * Field specific values (camel case) and their validator default values.
+	 * @var array
+	 */
+	protected static $fieldSpecificProperties = [
+		'multiple'				=> NULL,
+		'accept'				=> NULL,
+		'allowedFileNameChars'	=> static::ALLOWED_FILE_NAME_CHARS_DEFAULT,
+		'minCount'				=> NULL,
+		'maxCount'				=> NULL,
+		'minSize'				=> NULL,
+		'maxSize'				=> NULL,
+	];
+
+	/**
 	 * Uploaded files collection completed from request object from global `$_FILES` array.
 	 * Every item in array is `\stdClass` object with following records:
 	 * - `name`			- string from `$_FILES['name']`, sanitized by `basename()`, by max. length and by allowed characters.
@@ -94,86 +108,6 @@ class Files
 	 * @var array
 	 */
 	protected $mimeTypesAndExts = [];
-
-	/**
-	 * Set up field instance, where is validated value by this 
-	 * validator durring submit before every `Validate()` method call.
-	 * Check if given field implements `\MvcCore\Ext\Forms\Fields\IAccept`
-	 * and `\MvcCore\Ext\Forms\Fields\IMultiple`.
-	 * @param \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm $form 
-	 * @return \MvcCore\Ext\Forms\Validator|\MvcCore\Ext\Forms\IValidator
-	 */
-	public function & SetField (\MvcCore\Ext\Forms\IField & $field) {
-		if (!$field instanceof \MvcCore\Ext\Forms\Fields\IMultiple) 
-			$this->throwNewInvalidArgumentException(
-				'If field has configured `Files` validator, it has to implement '
-				.'interface `\\MvcCore\\Ext\\Forms\\Fields\\IMultiple`.'
-			);
-		if (!$field instanceof \MvcCore\Ext\Forms\Fields\IFiles) 
-			$this->throwNewInvalidArgumentException(
-				'If field has configured `Files` validator, it has to implement '
-				.'interface `\\MvcCore\\Ext\\Forms\\Fields\\IFiles`.'
-			);
-		
-		$fieldMultiple = $field->GetMultiple();
-		if ($fieldMultiple !== NULL) {
-			// if validator is added as string - get multiple property from field:
-			$this->multiple = $fieldMultiple;
-		} else if ($this->multiple !== NULL && $fieldMultiple === NULL) {
-			// if this validator is added into field as instance - check field if it has multiple attribute defined:
-			$field->SetMultiple($this->multiple);
-		}
-		
-		$fieldAccept = $field->GetAccept();
-		if ($fieldAccept !== NULL) {
-			// if validator is added as string - get accept property from field:
-			$this->accept = $fieldAccept;
-		} else if ($this->accept !== NULL && $fieldAccept === NULL) {
-			// if this validator is added into field as instance - check field if it has accept attribute defined:
-			$field->SetAccept($this->accept);
-		}
-		
-		$fieldAllowedFileNameChars = $field->GetAccept();
-		if ($fieldAllowedFileNameChars !== NULL) {
-			// if validator is added as string - get allowedFileNameChars property from field:
-			$this->allowedFileNameChars = $fieldAllowedFileNameChars;
-		} else if ($this->allowedFileNameChars !== NULL && $fieldAllowedFileNameChars === NULL) {
-			// if this validator is added into field as instance - check field if it has allowedFileNameChars field defined:
-			$field->SetAllowedFileNameChars($this->allowedFileNameChars);
-		} else if ($this->allowedFileNameChars === NULL && $fieldAllowedFileNameChars === NULL) {
-			$this->allowedFileNameChars = static::ALLOWED_FILE_NAME_CHARS_DEFAULT;
-		}
-
-		$fieldMinCount = $field->GetMinCount();
-		if ($fieldMinCount !== NULL) {
-			$this->minCount = $fieldMinCount;
-		} else if ($this->minCount !== NULL && $fieldMinCount === NULL) {
-			$field->SetMinCount($this->minCount);
-		}
-
-		$fieldMaxCount = $field->GetMaxCount();
-		if ($fieldMaxCount !== NULL) {
-			$this->maxCount = $fieldMaxCount;
-		} else if ($this->maxCount !== NULL && $fieldMaxCount === NULL) {
-			$field->SetMaxCount($this->maxCount);
-		}
-
-		$fieldMinSize = $field->GetMinSize();
-		if ($fieldMinSize !== NULL) {
-			$this->minSize = $fieldMinSize;
-		} else if ($this->minSize !== NULL && $fieldMinSize === NULL) {
-			$field->SetMinSize($this->minSize);
-		}
-
-		$fieldMaxSize = $field->GetMaxSize();
-		if ($fieldMaxSize !== NULL) {
-			$this->maxSize = $fieldMaxSize;
-		} else if ($this->maxSize !== NULL && $fieldMaxSize === NULL) {
-			$field->SetMaxSize($this->maxSize);
-		}
-		
-		return parent::SetField($field);
-	}
 
 	/**
 	 * Validate `$_FILES` array items storeg in request object. Check if file is valid

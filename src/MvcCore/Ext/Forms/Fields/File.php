@@ -75,6 +75,23 @@ class File
 	}
 
 	/**
+	 * Return field specific data for validator.
+	 * @param array $fieldPropsDefaultValidValues 
+	 * @return array
+	 */
+	public function & GetValidatorData ($fieldPropsDefaultValidValues = []) {
+		return [
+			'multiple'				=> $this->multiple,
+			'accept'				=> $this->accept,
+			'allowedFileNameChars'	=> static::ALLOWED_FILE_NAME_CHARS_DEFAULT,
+			'minCount'				=> $this->minCount,
+			'maxCount'				=> $this->maxCount,
+			'minSize'				=> $this->minSize,
+			'maxSize'				=> $this->maxSize,
+		];
+	}
+
+	/**
 	 * This INTERNAL method is called from `\MvcCore\Ext\Form` just before
 	 * field is naturally rendered. It sets up field for rendering process.
 	 * Do not use this method event if you don't develop any form field.
