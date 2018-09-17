@@ -80,7 +80,7 @@ class File
 	 * @return array
 	 */
 	public function & GetValidatorData ($fieldPropsDefaultValidValues = []) {
-		return [
+		$result = [
 			'multiple'				=> $this->multiple,
 			'accept'				=> $this->accept,
 			'allowedFileNameChars'	=> static::ALLOWED_FILE_NAME_CHARS_DEFAULT,
@@ -89,6 +89,7 @@ class File
 			'minSize'				=> $this->minSize,
 			'maxSize'				=> $this->maxSize,
 		];
+		return $result;
 	}
 
 	/**
