@@ -138,7 +138,7 @@ class File
 			'id'		=> $this->id,
 			'name'		=> $this->name . ($this->multiple ? '[]' : ''),
 			'type'		=> $this->type,
-			'value'		=> "",
+			'value'		=> '',
 			'attrs'		=> strlen($attrsStr) > 0 ? ' ' . $attrsStr : '',
 		]);
 		return $this->renderControlWrapper($result);
