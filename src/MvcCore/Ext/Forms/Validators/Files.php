@@ -305,6 +305,8 @@ class Files
 		$allowed = FALSE;
 		$finfo = finfo_open(FILEINFO_MIME);
 		$fileMimeType = @finfo_file($finfo, $file->tmpFullPath);
+		$semicolonPos = strpos($fileMimeType, ';');
+		if ($semicolonPos !== FALSE) $fileMimeType = substr($fileMimeType, 0, $semicolonPos);
 		finfo_close($finfo);
 		if ($this->mimeTypes) {
 			foreach ($this->mimeTypes as $mimeType => $mimeTypeAndExtensions) {
