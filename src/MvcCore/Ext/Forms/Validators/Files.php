@@ -98,7 +98,7 @@ class Files
 	 * - `tmpFullPath`	- string from `$_FILES['tmp_name']`, checked by `is_uploaded_file()`.
 	 * - `error`		- int from `$_FILES['error']`, always `0` in success upload.
 	 * - `size`			- int from `$_FILES['size']`, checked by `filesize()`,
-	 * - `extension`	- lowercase file extension parsed by `pathinfo()` from sanitized `name` record.
+	 * - `extension`	- lower case file extension parsed by `pathinfo()` from sanitized `name` record.
 	 * @var \stdClass[]
 	 */
 	protected $files = [];
@@ -122,7 +122,7 @@ class Files
 		// 2. Prepare all accept mimetype regular expressions for `finfo_file()` function result.
 		if (!$this->readAccept()) return NULL;
 		// 3. check if `finfo_file()` function exists. File info extension is 
-		// presented from PHP 5.3+ by default, so this error probably never happend.
+		// presented from PHP 5.3+ by default, so this error probably never happened.
 		if (!function_exists('finfo_file')) return $this->handlePhpError(self::UPLOAD_ERR_NO_FILEINFO);
 		foreach ($this->files as $file) {
 			// 4. Check errors completed by PHP:
