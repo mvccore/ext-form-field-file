@@ -24,12 +24,12 @@ namespace MvcCore\Ext\Forms\Fields;
 interface IFiles
 {
 	/**
-	 * Get list of allowed file mimetypes or file extensions. 
-	 * All defined file mimetypes are checked with `finfo` PHP extension and checked by
-	 * allowed file extensions for defined mimetype.
-	 * All defined file extensions are translated internaly on server side into mimetypes,
+	 * Get list of allowed file mime-types or file extensions. 
+	 * All defined file mime-types are checked with `finfo` PHP extension and checked by
+	 * allowed file extensions for defined mime-type.
+	 * All defined file extensions are translated internally on server side into mime-types,
 	 * then checked with `finfo` PHP extension and checked by
-	 * allowed file extensions for defined mimetype.
+	 * allowed file extensions for defined mime-type.
 	 * Example: `$this->accept = ['image/*', 'audio/mp3', '.docx'];`
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept
 	 * @return \string[]
@@ -37,12 +37,12 @@ interface IFiles
 	public function GetAccept ();
 
 	/**
-	 * Set list of allowed file mimetypes or file extensions. 
-	 * All defined file mimetypes are checked with `finfo` PHP extension and checked by
-	 * allowed file extensions for defined mimetype.
-	 * All defined file extensions are translated internaly on server side into mimetypes,
+	 * Set list of allowed file mime-types or file extensions. 
+	 * All defined file mime-types are checked with `finfo` PHP extension and checked by
+	 * allowed file extensions for defined mime-type.
+	 * All defined file extensions are translated internally on server side into mime-types,
 	 * then checked with `finfo` PHP extension and checked by
-	 * allowed file extensions for defined mimetype.
+	 * allowed file extensions for defined mime-type.
 	 * Example: `$this->accept = ['image/*', 'audio/mp3', '.docx'];`
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept
 	 * @param \string[] $accept 
