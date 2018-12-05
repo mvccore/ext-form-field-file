@@ -65,7 +65,7 @@ trait Files
 	protected $allowedFileNameChars = NULL;
 
 	/**
-	 * Minumum uploaded files count. `NULL` by default.
+	 * Minimum uploaded files count. `NULL` by default.
 	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
@@ -83,7 +83,7 @@ trait Files
 	protected $maxCount = NULL;
 
 	/**
-	 * Minumum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * Minimum uploaded file size for one uploaded item in bytes. `NULL` by default.
 	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
@@ -128,6 +128,7 @@ trait Files
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetAccept (array $accept = []) {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->accept = $accept;
 		return $this;
 	}
@@ -144,7 +145,7 @@ trait Files
 	}
 
 	/**
-	 * Set bolean attribute indicates that capture of media directly from the 
+	 * Set boolean attribute indicates that capture of media directly from the 
 	 * device's sensors using a media capture mechanism is preferred, 
 	 * such as a webcam or microphone. This HTML attribute is used on mobile devices.
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-capture
@@ -152,6 +153,7 @@ trait Files
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetCapture ($capture = 'camera') {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->capture = $capture;
 		return $this;
 	}
@@ -180,12 +182,13 @@ trait Files
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetAllowedFileNameChars ($allowedFileNameChars) {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->allowedFileNameChars = $allowedFileNameChars;
 		return $this;
 	}
 
 	/**
-	 * Get minumum uploaded files count. `NULL` by default.
+	 * Get minimum uploaded files count. `NULL` by default.
 	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
@@ -196,7 +199,7 @@ trait Files
 	}
 
 	/**
-	 * Set minumum uploaded files count. `NULL` by default.
+	 * Set minimum uploaded files count. `NULL` by default.
 	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
@@ -204,6 +207,7 @@ trait Files
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetMinCount ($minCount) {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->minCount = $minCount === NULL ? NULL : intval($minCount);
 		return $this;
 	}
@@ -228,12 +232,13 @@ trait Files
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetMaxCount ($maxCount) {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->maxCount = $maxCount === NULL ? NULL : intval($maxCount);
 		return $this;
 	}
 
 	/**
-	 * Get minumum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * Get minimum uploaded file size for one uploaded item in bytes. `NULL` by default.
 	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
@@ -244,7 +249,7 @@ trait Files
 	}
 
 	/**
-	 * Set minumum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * Set minimum uploaded file size for one uploaded item in bytes. `NULL` by default.
 	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
@@ -252,6 +257,7 @@ trait Files
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetMinSize ($minSize) {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->minSize = $minSize === NULL ? NULL : intval($minSize);
 		return $this;
 	}
@@ -276,6 +282,7 @@ trait Files
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetMaxSize ($maxSize) {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->maxSize = $maxSize === NULL ? NULL : intval($maxSize);
 		return $this;
 	}

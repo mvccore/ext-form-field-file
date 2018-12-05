@@ -14,7 +14,7 @@
 namespace MvcCore\Ext\Forms\Validators;
 
 /**
- * Responsibility: Validate everithing necessary for uploaded files and check 
+ * Responsibility: Validate everything necessary for uploaded files and check 
  *				   files by `accept` attribute rules by magic bytes.
  * @see http://php.net/manual/en/features.file-upload.php
  * @see http://php.net/manual/en/features.file-upload.common-pitfalls.php
@@ -69,7 +69,7 @@ class Files
 		self::UPLOAD_ERR_NO_MIMES_EXTS	=> "MvcCore extension library to get mimetype(s) by "
 											. "file extension and backwards is not "
 											. "installed (`mvccore/ext-tool-mimetype-extension`).",				// 18
-		self::UPLOAD_ERR_UNKNOWN_ACCEPT	=> "Unknown accept atribute value found: `{1}`.",						// 19
+		self::UPLOAD_ERR_UNKNOWN_ACCEPT	=> "Unknown accept attribute value found: `{1}`.",						// 19
 		self::UPLOAD_ERR_UNKNOWN_EXT	=> "Unknown file mimetype found for accept file extension: `{1}`.",		// 20
 		self::UPLOAD_ERR_UNKNOWN_MIME	=> "Unknown file extension found for accept file mimetype: `{1}`.",		// 21
 		self::UPLOAD_ERR_NOT_ACCEPTED	=> "The uploaded file is not in the expected file format (`{1}`).",		// 22
@@ -110,11 +110,11 @@ class Files
 	protected $mimeTypesAndExts = [];
 
 	/**
-	 * Validate `$_FILES` array items storeg in request object. Check if file is valid
+	 * Validate `$_FILES` array items stored in request object. Check if file is valid
 	 * uploaded file, sanitize file name and check file mimetype by `finfo` extension by accept attribute values.
-	 * Return `NULL` for failure or success result as array with `\stdClass`ses for each file.
+	 * Return `NULL` for failure or success result as array with `\stdClass`(es) for each file.
 	 * @param string|array	$rawSubmittedValue Raw user input - for this validator always `NULL`.
-	 * @return float|NULL	Safe submitted files array or `NULL` if not possible to return safe value.
+	 * @return \stdClass[]|NULL	Safe submitted files array or `NULL` if not possible to return safe value.
 	 */
 	public function Validate ($rawSubmittedValue) {
 		// 1. Complete files array from global `$_FILES` stored in request object:
@@ -123,7 +123,7 @@ class Files
 		if (!$this->readAccept()) return NULL;
 		// 3. check if `finfo_file()` function exists. File info extension is 
 		// presented from PHP 5.3+ by default, so this error probably never happened.
-		if (!function_exists('finfo_file')) return $this->handlePhpError(self::UPLOAD_ERR_NO_FILEINFO);
+		if (!function_exists('finfo_file')) return $this->handlePhpUploadError(self::UPLOAD_ERR_NO_FILEINFO);
 		foreach ($this->files as $file) {
 			// 4. Check errors completed by PHP:
 			if ($file->error !== 0) return $this->handlePhpUploadError($file->error);
@@ -140,7 +140,7 @@ class Files
 
 	/**
 	 * Complete files array from global `$_FILES` stored in request object.
-	 * @return void
+	 * @return bool|NULL
 	 */
 	protected function & completeFiles () {
 		$this->files = [];
@@ -174,11 +174,11 @@ class Files
 			return $this->handlePhpUploadError(self::UPLOAD_ERR_MAX_FILES, [$this->maxCount]);
 		if ($filesCount > 0) 
 			return TRUE;
-		return $this->handlePhpError(UPLOAD_ERR_NO_FILE);
+		return $this->handlePhpUploadError(UPLOAD_ERR_NO_FILE);
 	}
 
 	/**
-	 * Read input file accept atribute value for mimetypes and extension files validation.
+	 * Read input file accept attribute value for mimetypes and extension files validation.
 	 * @return bool|NULL
 	 */
 	protected function readAccept () {
@@ -201,15 +201,15 @@ class Files
 					$accept = substr($accept, 0, $semiColonPos);
 				$mimeTypes[$accept] = 1;
 			} else {
-				return $this->handlePhpError(self::UPLOAD_ERR_UNKNOWN_ACCEPT, [$rawAccept]);
+				return $this->handlePhpUploadError(self::UPLOAD_ERR_UNKNOWN_ACCEPT, [$rawAccept]);
 			}
 		}
-		// Get possible mimetype(s) for extension(s) defined by mvccore validators library:
+		// Get possible mimetype(s) for extension(s) defined by MvcCore validators library:
 		if ($extensions) {
 			foreach ($extensions as $extension) {
 				$mimeTypesByExt = $extToolsMimesExtsClass::GetMimeTypesByExtension($extension);
 				if ($mimeTypesByExt === NULL) {
-					return $this->handlePhpError(self::UPLOAD_ERR_UNKNOWN_EXT, [$extension]);
+					return $this->handlePhpUploadError(self::UPLOAD_ERR_UNKNOWN_EXT, [$extension]);
 				} else {
 					foreach ($mimeTypesByExt as $mimeTypeByExt) 
 						$mimeTypes[$mimeTypeByExt] = 1;
@@ -221,7 +221,7 @@ class Files
 		foreach ($mimeTypes as $mimeType) {
 			$allowedExtensions = $extToolsMimesExtsClass::GetExtensionsByMimeType($mimeType);
 			if ($allowedExtensions === NULL) {
-				return $this->handlePhpError(self::UPLOAD_ERR_UNKNOWN_MIME, [$mimeType]);
+				return $this->handlePhpUploadError(self::UPLOAD_ERR_UNKNOWN_MIME, [$mimeType]);
 			} else {
 				$mimeTypeRegExp = $this->readAcceptPrepareMimeTypeRegExp($mimeType);
 				$this->mimeTypesAndExts[$mimeType] = [$mimeTypeRegExp, $allowedExtensions];
@@ -334,7 +334,7 @@ class Files
 	 * @param array $errorMsgArgs
 	 * @return NULL
 	 */
-	protected function handlePhpError ($errorNumber, $errorMsgArgs = []) {
+	protected function handlePhpUploadError ($errorNumber, $errorMsgArgs = []) {
 		if ($errorNumber === UPLOAD_ERR_INI_SIZE) {
 			$form = $this->form;
 			// `post_max_size` is always handled at submit process begin.

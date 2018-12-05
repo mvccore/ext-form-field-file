@@ -16,7 +16,7 @@ namespace MvcCore\Ext\Forms\Fields;
 /**
  * Responsibility: init, pre-dispatch and render `<input>` HTML element 
  *				   with type `file`. `File` field has it's own validator 
- *				   `Files` to check everithing necessary for uploaded 
+ *				   `Files` to check everything necessary for uploaded 
  *				   files and check files by `accept` attribute rules by 
  *				   magic bytes.
  */
@@ -41,7 +41,7 @@ class File
 
 	/**
 	 * Validators: 
-	 * - `Files` - to check everithing necessary for uploaded files and check 
+	 * - `Files` - to check everything necessary for uploaded files and check 
 	 *			   files by `accept` attribute rules by magic bytes.
 	 * @var string[]|\Closure[]
 	 */
@@ -62,6 +62,7 @@ class File
 	 * @return \MvcCore\Ext\Forms\Fields\Select|\MvcCore\Ext\Forms\IField
 	 */
 	public function & SetForm (\MvcCore\Ext\Forms\IForm & $form) {
+		/** @var $this \MvcCore\Ext\Forms\IField */
 		parent::SetForm($form);
 		if ($this->accept === NULL) $this->throwNewInvalidArgumentException(
 			'No `accept` property defined.'
@@ -135,7 +136,9 @@ class File
 			$attrsStr .= $attrsStrSep . 'form="' . $this->form->GetId() . '"';
 		}
 		$formViewClass = $this->form->GetViewClass();
-		$result = $formViewClass::Format(static::$templates->control, [
+		/** @var $templates \stdClass */
+		$templates = static::$templates;
+		$result = $formViewClass::Format($templates->control, [
 			'id'		=> $this->id,
 			'name'		=> $this->name . ($this->multiple ? '[]' : ''),
 			'type'		=> $this->type,
