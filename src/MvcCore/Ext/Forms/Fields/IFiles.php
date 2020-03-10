@@ -48,7 +48,7 @@ interface IFiles
 	 * @param \string[] $accept 
 	 * @return \MvcCore\Ext\Forms\IField
 	 */
-	public function & SetAccept (array $accept = []);
+	public function SetAccept (array $accept = []);
 
 	/**
 	 * Get boolean attribute indicates that capture of media directly from the 
@@ -67,7 +67,7 @@ interface IFiles
 	 * @param string|NULL $capture 
 	 * @return \MvcCore\Ext\Forms\IField
 	 */
-	public function & SetCapture ($capture = 'camera');
+	public function SetCapture ($capture = 'camera');
 
 	/**
 	 * Get allowed file name characters and characters groups for submit regular expression.
@@ -90,7 +90,7 @@ interface IFiles
 	 * @param string|NULL $allowedFileNameChars
 	 * @return \MvcCore\Ext\Forms\IField
 	 */
-	public function & SetAllowedFileNameChars ($allowedFileNameChars);
+	public function SetAllowedFileNameChars ($allowedFileNameChars);
 
 	/**
 	 * Get minimum uploaded files count. `NULL` by default.
@@ -109,7 +109,7 @@ interface IFiles
 	 * @param int|NULL $minCount
 	 * @return \MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMinCount ($minCount);
+	public function SetMinCount ($minCount);
 
 	/**
 	 * Get maximum uploaded files count. `NULL` by default.
@@ -128,7 +128,7 @@ interface IFiles
 	 * @param int|NULL $maxCount
 	 * @return \MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMaxCount ($maxCount);
+	public function SetMaxCount ($maxCount);
 
 	/**
 	 * Get minimum uploaded file size for one uploaded item in bytes. `NULL` by default.
@@ -147,7 +147,7 @@ interface IFiles
 	 * @param int|NULL $minSize
 	 * @return \MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMinSize ($minSize);
+	public function SetMinSize ($minSize);
 
 	/**
 	 * Get maximum uploaded file size for one uploaded item in bytes. `NULL` by default.
@@ -166,5 +166,5 @@ interface IFiles
 	 * @param int|NULL $maxSize
 	 * @return \MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMaxSize ($maxSize);
+	public function SetMaxSize ($maxSize);
 }

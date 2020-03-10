@@ -127,7 +127,7 @@ trait Files
 	 * @param \string[] $accept 
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
-	public function & SetAccept (array $accept = []) {
+	public function SetAccept (array $accept = []) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->accept = $accept;
 		return $this;
@@ -152,7 +152,7 @@ trait Files
 	 * @param string|NULL $capture 
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
-	public function & SetCapture ($capture = 'camera') {
+	public function SetCapture ($capture = 'camera') {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->capture = $capture;
 		return $this;
@@ -181,7 +181,7 @@ trait Files
 	 * @param string|NULL $allowedFileNameChars
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
-	public function & SetAllowedFileNameChars ($allowedFileNameChars) {
+	public function SetAllowedFileNameChars ($allowedFileNameChars) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->allowedFileNameChars = $allowedFileNameChars;
 		return $this;
@@ -206,7 +206,7 @@ trait Files
 	 * @param int|NULL $minCount
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMinCount ($minCount) {
+	public function SetMinCount ($minCount) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->minCount = $minCount === NULL ? NULL : intval($minCount);
 		return $this;
@@ -231,7 +231,7 @@ trait Files
 	 * @param int|NULL $maxCount
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMaxCount ($maxCount) {
+	public function SetMaxCount ($maxCount) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->maxCount = $maxCount === NULL ? NULL : intval($maxCount);
 		return $this;
@@ -256,7 +256,7 @@ trait Files
 	 * @param int|NULL $minSize
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMinSize ($minSize) {
+	public function SetMinSize ($minSize) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->minSize = $minSize === NULL ? NULL : intval($minSize);
 		return $this;
@@ -281,7 +281,7 @@ trait Files
 	 * @param int|NULL $maxSize
 	 * @return \MvcCore\Ext\Forms\Field|\MvcCore\Ext\Forms\IField
 	 */
-	public function & SetMaxSize ($maxSize) {
+	public function SetMaxSize ($maxSize) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		$this->maxSize = $maxSize === NULL ? NULL : intval($maxSize);
 		return $this;
