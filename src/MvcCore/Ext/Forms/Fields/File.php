@@ -25,13 +25,24 @@ class File
 	implements	\MvcCore\Ext\Forms\Fields\IVisibleField, 
 				\MvcCore\Ext\Forms\Fields\ILabel,
 				\MvcCore\Ext\Forms\Fields\IMultiple,
-				\MvcCore\Ext\Forms\Fields\IFiles
+				\MvcCore\Ext\Forms\Fields\IFiles,
+				\MvcCore\Ext\Forms\Fields\IAlwaysValidate
 {
 	use \MvcCore\Ext\Forms\Field\Props\VisibleField;
 	use \MvcCore\Ext\Forms\Field\Props\Label;
 	use \MvcCore\Ext\Forms\Field\Props\Multiple;
 	use \MvcCore\Ext\Forms\Field\Props\Files;
 	use \MvcCore\Ext\Forms\Field\Props\Wrapper;
+	
+	/**
+	 * Default allowed file name characters and characters groups for submit regular expression.
+	 * All regular expression special characters will be escaped by `addcslashes()` 
+	 * function to create proper regular expression pattern to keep only characters 
+	 * and characters groups presented in this constant. This constant is used only
+	 * if there is not specified any custom characters and characters groups by method(s): 
+	 * `$field->SetAllowedFileNameChars('...');` or  `$validator->SetAllowedFileNameChars('...');`.
+	 */
+	const ALLOWED_FILE_NAME_CHARS_DEFAULT = '-a-zA-Z0-9@%&,~`._ !#$^()+={}[]<>\'';
 
 	/**
 	 * Possible values: `file`.

@@ -21,16 +21,6 @@ namespace MvcCore\Ext\Forms\Field\Props;
 trait Files
 {
 	/**
-	 * Default allowed file name characters and characters groups for submit regular expression.
-	 * All regular expression special characters will be escaped by `addcslashes()` 
-	 * function to create proper regular expression pattern to keep only characters 
-	 * and characters groups presented in this constant. This constant is used only
-	 * if there is not specified any custom characters and characters groups by method(s): 
-	 * `$field->SetAllowedFileNameChars('...');` or  `$validator->SetAllowedFileNameChars('...');`.
-	 */
-	const ALLOWED_FILE_NAME_CHARS_DEFAULT = '-a-zA-Z0-9@%&,~`._ !#$^()+={}[]<>\'';
-
-	/**
 	 * List of allowed file mimetypes or file extensions. 
 	 * All defined file mimetypes are checked with `finfo` PHP extension and checked by
 	 * allowed file extensions for defined mimetype.

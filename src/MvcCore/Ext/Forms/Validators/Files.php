@@ -21,7 +21,8 @@ namespace MvcCore\Ext\Forms\Validators;
  */
 class Files 
 	extends		\MvcCore\Ext\Forms\Validator
-	implements	\MvcCore\Ext\Forms\Fields\IMultiple,
+	implements	\MvcCore\Ext\Forms\IValidator,
+				\MvcCore\Ext\Forms\Fields\IMultiple,
 				\MvcCore\Ext\Forms\Fields\IFiles
 {
 	use \MvcCore\Ext\Forms\Field\Props\Multiple;
@@ -83,7 +84,7 @@ class Files
 	protected static $fieldSpecificProperties = [
 		'multiple'				=> NULL,
 		'accept'				=> NULL,
-		'allowedFileNameChars'	=> static::ALLOWED_FILE_NAME_CHARS_DEFAULT,
+		'allowedFileNameChars'	=> \MvcCore\Ext\Forms\Fields\File::ALLOWED_FILE_NAME_CHARS_DEFAULT,
 		'minCount'				=> NULL,
 		'maxCount'				=> NULL,
 		'minSize'				=> NULL,
@@ -118,6 +119,7 @@ class Files
 	 */
 	public function Validate ($rawSubmittedValue) {
 		// 1. Complete files array from global `$_FILES` stored in request object:
+		xxx($this);
 		if (!$this->completeFiles()) return NULL;
 		// 2. Prepare all accept mimetype regular expressions for `finfo_file()` function result.
 		if (!$this->readAccept()) return NULL;
