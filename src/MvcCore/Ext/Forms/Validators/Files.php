@@ -119,7 +119,6 @@ class Files
 	 */
 	public function Validate ($rawSubmittedValue) {
 		// 1. Complete files array from global `$_FILES` stored in request object:
-		xxx($this);
 		if (!$this->completeFiles()) return NULL;
 		// 2. Prepare all accept mimetype regular expressions for `finfo_file()` function result.
 		if (!$this->readAccept()) return NULL;
@@ -144,7 +143,7 @@ class Files
 	 * Complete files array from global `$_FILES` stored in request object.
 	 * @return bool|NULL
 	 */
-	protected function & completeFiles () {
+	protected function completeFiles () {
 		$this->files = [];
 		$filesFieldItems = $this->form->GetRequest()->GetFile($this->field->GetName());
 		if (!$filesFieldItems) return;
@@ -190,13 +189,13 @@ class Files
 		$extToolsMimesExtsClass = '\\MvcCore\\Ext\\Tools\\MimeTypesExtensions';
 		if (!class_exists($extToolsMimesExtsClass)) 
 			return $this->handlePhpUploadError(self::UPLOAD_ERR_NO_MIMES_EXTS);
-
+		
 		foreach ($this->accept as $rawAccept) {
 			$accept = trim($rawAccept);
 			if (substr($accept, 0, 1) === '.' && strlen($accept) > 1) {
 				$ext = strtolower(substr($accept, 1));
 				$extensions[$ext] = 1;
-			} else if (preg_match("#^([a-z-]+)/(.*)#", $accept)) {
+			} else if (preg_match("#^([a-z-]+)/(.*)$#", $accept)) {
 				// mimes from accept could have strange values like: audio/*;capture=microphone
 				$semiColonPos = strpos($accept, ';');
 				if ($semiColonPos !== FALSE) 
@@ -206,6 +205,7 @@ class Files
 				return $this->handlePhpUploadError(self::UPLOAD_ERR_UNKNOWN_ACCEPT, [$rawAccept]);
 			}
 		}
+
 		// Get possible mimetype(s) for extension(s) defined by MvcCore validators library:
 		if ($extensions) {
 			foreach ($extensions as $extension) {
@@ -218,6 +218,7 @@ class Files
 				}
 			}
 		}
+
 		// Get for all mimetype(s) allowed file extensions:
 		$mimeTypes = array_keys($mimeTypes);
 		foreach ($mimeTypes as $mimeType) {
@@ -280,7 +281,7 @@ class Files
 	protected function validateSanitizeFileNameAndAddFileExt (& $file) {
 		// Sanitize safe file name:
 		$allowedFileNameCharsPattern = '#[^' 
-			. addcslashes($$this->allowedFileNameChars, "#[](){}<>?!=^$.+|:\\") 
+			. addcslashes($this->allowedFileNameChars, "#[](){}<>?!=^$.+|:\\") 
 		. ']#';
 		$file->name = preg_replace($allowedFileNameCharsPattern, '', $file->name);
 		// Sanitize max. file name length:
@@ -310,8 +311,8 @@ class Files
 		$semicolonPos = strpos($fileMimeType, ';');
 		if ($semicolonPos !== FALSE) $fileMimeType = substr($fileMimeType, 0, $semicolonPos);
 		finfo_close($finfo);
-		if ($this->mimeTypes) {
-			foreach ($this->mimeTypes as $mimeType => $mimeTypeAndExtensions) {
+		if ($this->mimeTypesAndExts) {
+			foreach ($this->mimeTypesAndExts as $mimeType => $mimeTypeAndExtensions) {
 				list($mimeTypeRegExpPattern, $allowedFileExtensions) = $mimeTypeAndExtensions;
 				if (preg_match($mimeTypeRegExpPattern, $fileMimeType)) {
 					if (in_array($file->extension, $allowedFileExtensions)) {
