@@ -42,7 +42,31 @@ class File
 	 * if there is not specified any custom characters and characters groups by method(s): 
 	 * `$field->SetAllowedFileNameChars('...');` or  `$validator->SetAllowedFileNameChars('...');`.
 	 */
-	const ALLOWED_FILE_NAME_CHARS_DEFAULT = '-a-zA-Z0-9@%&,~`._ !#$^()+={}[]<>\'';
+	const ALLOWED_FILE_NAME_CHARS_DEFAULT = '-a-zA-Z0-9@,._ ()+={}[]\'';
+	
+	const CONFIG_ERR_NO_ACCEPT_PROPERTY		= 100;
+	const CONFIG_ERR_WRONG_FORM_ENCTYPE		= 101;
+	const CONFIG_ERR_UPLOADS_NOT_ALOWED		= 102;
+	const CONFIG_ERR_MAX_UPLOAD_SIZE_LOWER	= 103;
+	const CONFIG_ERR_MAX_POST_SIZE_LOWER	= 104;
+	const CONFIG_ERR_MAX_FILES_COUNT_LOWER	= 105;
+	const CONFIG_ERR_MISMATCH_MIN_MAX_COUNT = 106;
+	const CONFIG_ERR_MISMATCH_MIN_MAX_SIZE	= 107;
+
+	/**
+	 * Configuration error messages.
+	 * @var array
+	 */
+	protected static $configErrorMessages = [
+		self::CONFIG_ERR_NO_ACCEPT_PROPERTY		=> "No `accept` property defined.",
+		self::CONFIG_ERR_WRONG_FORM_ENCTYPE		=> "Form needs to define `enctype` attribute as `{0}`.",
+		self::CONFIG_ERR_UPLOADS_NOT_ALOWED		=> "System has not allowed file upload.",
+		self::CONFIG_ERR_MAX_UPLOAD_SIZE_LOWER	=> "System value for max. file upload size is lower than field configuration.",
+		self::CONFIG_ERR_MAX_POST_SIZE_LOWER	=> "System value for max. POST size is lower than field configuration.",
+		self::CONFIG_ERR_MAX_FILES_COUNT_LOWER	=> "System value for max. uploaded files count is lower than field configuration.",
+		self::CONFIG_ERR_MISMATCH_MIN_MAX_COUNT => "Mismatch in min. and max. uploaded files count in field configuration.",
+		self::CONFIG_ERR_MISMATCH_MIN_MAX_SIZE	=> "Mismatch in min. and max. uploaded files sizes in field configuration.",
+	];
 
 	/**
 	 * Possible values: `file`.
@@ -54,7 +78,7 @@ class File
 	 * Validators: 
 	 * - `Files` - to check everything necessary for uploaded files and check 
 	 *			   files by `accept` attribute rules by magic bytes.
-	 * @var string[]|\Closure[]
+	 * @var \string[]|\MvcCore\Ext\Forms\IValidator[]
 	 */
 	protected $validators = ['Files'];
 
@@ -75,15 +99,95 @@ class File
 	public function SetForm (\MvcCore\Ext\Forms\IForm $form) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		parent::SetForm($form);
-		if ($this->accept === NULL) $this->throwNewInvalidArgumentException(
-			'No `accept` property defined.'
-		);
-		if ($form->GetEnctype() !== \MvcCore\Ext\Forms\IForm::ENCTYPE_MULTIPART) 
-			$this->throwNewInvalidArgumentException(
-				'Form needs to define `enctype` attribute as `' 
-				. \MvcCore\Ext\Forms\IForm::ENCTYPE_MULTIPART . '`.'
-			);
+		$this->checkConfiguration();
 		return $this;
+	}
+	
+	/**
+	 * Check configuration against PHP ini 
+	 * values and between each other.
+	 * If there is any error, thrown an exception.
+	 * @throws \InvalidArgumentException
+	 * @return void
+	 */
+	protected function checkConfiguration () {
+		if ($this->accept === NULL) 
+			$this->throwConfigException(
+				static::CONFIG_ERR_NO_ACCEPT_PROPERTY
+			);
+
+		$multipartFormEnctype = \MvcCore\Ext\Forms\IForm::ENCTYPE_MULTIPART;
+		if ($this->form->GetEnctype() !== $multipartFormEnctype) 
+			$this->throwConfigException(
+				str_replace(
+					'{0}', $multipartFormEnctype,
+					static::CONFIG_ERR_WRONG_FORM_ENCTYPE
+				)
+			);
+
+		$rawFileUploads = @ini_get("file_uploads");
+		if (
+			!$rawFileUploads || 
+			strtolower($rawFileUploads) == 'off'
+		) $this->throwConfigException(
+			static::CONFIG_ERR_UPLOADS_NOT_ALOWED
+		);
+
+		if ($this->maxSize !== NULL) {
+			$maxIniFileSize = $this->form->GetPhpIniSizeLimit(
+				"upload_max_filesize"
+			);
+			if (
+				$maxIniFileSize !== NULL && 
+				$this->maxSize > $maxIniFileSize
+			) 
+				$this->throwConfigException(
+					static::CONFIG_ERR_MAX_UPLOAD_SIZE_LOWER
+				);
+
+			$maxIniPostSize = $this->form->GetPhpIniSizeLimit(
+				"post_max_size"
+			);
+			if (
+				$maxIniPostSize !== NULL &&
+				$this->maxSize > $maxIniPostSize
+			) 
+				$this->throwConfigException(
+					static::CONFIG_ERR_MAX_POST_SIZE_LOWER
+				);
+		}
+
+		if ($this->multiple) {
+			$maxFiles = $this->form->GetPhpIniSizeLimit(
+				"max_file_uploads"
+			);
+			if (
+				$maxFiles !== NULL && (
+					$maxFiles < 2 || (
+						$this->maxCount !== NULL && 
+						$this->maxCount > $maxFiles
+					)
+				)
+			) $this->throwConfigException(
+				static::CONFIG_ERR_MAX_FILES_COUNT_LOWER
+			);
+		}
+
+		if (
+			$this->minCount !== NULL && 
+			$this->maxCount &&
+			$this->minCount > $this->maxCount
+		) $this->throwConfigException(
+			static::CONFIG_ERR_MISMATCH_MIN_MAX_COUNT
+		);
+
+		if (
+			$this->minSize !== NULL && 
+			$this->maxSize &&
+			$this->minSize > $this->maxSize
+		) $this->throwConfigException(
+			static::CONFIG_ERR_MISMATCH_MIN_MAX_SIZE
+		);
 	}
 
 	/**
@@ -116,6 +220,7 @@ class File
 	public function PreDispatch () {
 		parent::PreDispatch();
 		$this->preDispatchTabIndex();
+		$this->checkConfiguration();
 	}
 
 	/**
@@ -157,5 +262,18 @@ class File
 			'attrs'		=> strlen($attrsStr) > 0 ? ' ' . $attrsStr : '',
 		]);
 		return $this->renderControlWrapper($result);
+	}
+
+	/**
+	 * Throw an configuration exception by given error number.
+	 * @param int   $errorNumber
+	 * @throws \InvalidArgumentException
+	 * @return void
+	 */
+	protected function throwConfigException ($errorNumber, $errorMsgArgs = []) {
+		$errorMessage = static::$configErrorMessages[$errorNumber];
+		$this->throwNewInvalidArgumentException(
+			$errorMessage
+		);
 	}
 }

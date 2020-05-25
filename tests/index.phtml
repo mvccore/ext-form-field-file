@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Upload test</title>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+</head>
+<body>
+	<h1>Upload test</h1>
+	<p>
+		<b>Server configuration:</b><br />
+		file_uploads: <?=$file_uploads?><br />
+		upload_max_filesize: <?=$upload_max_filesize?><br />
+		max_file_uploads: <?=$max_file_uploads?><br />
+		post_max_size: <?=$post_max_size?><br />
+		upload_tmp_dir: <?=$upload_tmp_dir?><br />
+		system_tmp: <?=$system_tmp?>
+	</p>
+	<?php if (isset($success) && $success): ?>
+		<h2>Upload OK</h2>
+	<?php endif; ?>
+	<?=$form?>
+</body>
+</html>

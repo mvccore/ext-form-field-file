@@ -54,3 +54,7 @@ Temporary Items
 *.phpproj
 *.phpproj.user
 composer.dev.json
+tests/composer.dev.json
+tests/composer.dev.lock
+tests/vendor
+tests/composer-update-dev.cmd

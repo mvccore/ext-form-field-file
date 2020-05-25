@@ -29,7 +29,10 @@
 	}],
 	"require": {
 		"php": ">=5.4.0",
-		"mvccore/mvccore": "dev-master"
+		"mvccore/ext-form": "^5.0"
+	},
+	"suggest": {
+		"mvccore/ext-tool-mimetype-extension": "MvcCore file extensions and mimetypes validator helper."
 	},
 	"autoload": {
 		"classmap": ["src/"]

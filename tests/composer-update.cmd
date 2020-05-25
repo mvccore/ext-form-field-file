@@ -1,0 +1,2 @@
+@call composer update
+@pause

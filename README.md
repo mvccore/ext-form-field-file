@@ -25,6 +25,7 @@ composer require mvccore/ext-form-field-file
 			- allowed characters in filename, this validator automaticly sanitize uploaded filename every time
 			- `accept` attribute with allowed mime types by uploaded file(s) magic bytes
 			  (or by extension in `accept` attribute, converted on server side to mime type to check magic bytes)
+			- ZIP/TAR.GZ/PNG file bombs
 			  
 ## Features
 - always server side checked attributes `required`, `disabled` and `readonly`
@@ -56,3 +57,6 @@ $photos = new \MvcCore\Ext\Forms\Fields\Time([
 ...
 $form->AddFields($photos);
 ```
+
+## TODO
+- implement RAR file bombs detection and bz2 file bombs
