@@ -138,7 +138,7 @@ class Files
 	 * @return \stdClass[]|NULL	Safe submitted files array or `NULL` if not possible to return safe value.
 	 */
 	public function Validate ($rawSubmittedValue) {
-
+		
 		// 1. Check installed extensions for upload validation.
 		if (!$this->checkRequiremets())
 			return NULL;

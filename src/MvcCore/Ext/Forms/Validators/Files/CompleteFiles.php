@@ -23,11 +23,12 @@ trait CompleteFiles
 	 * @return bool|NULL
 	 */
 	protected function completeFiles () {
+		
 		$this->files = [];
 		$filesFieldItems = $this->form
 			->GetRequest()
 			->GetFile($this->field->GetName());
-
+		
 		if (!$filesFieldItems) 
 			return NULL;
 
