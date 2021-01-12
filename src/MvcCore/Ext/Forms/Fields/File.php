@@ -92,11 +92,11 @@ class File
 	 * - Set up translate boolean property.
 	 * - Check if there is defined any value for `accept` attribute to validate uploaded files.
 	 * - Check if form has correct `enctype` attribute for uploading files.
-	 * @param \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm $form
+	 * @param \MvcCore\Ext\Form|\MvcCore\Ext\IForm $form
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Forms\Fields\Select|\MvcCore\Ext\Forms\IField
 	 */
-	public function SetForm (\MvcCore\Ext\Forms\IForm $form) {
+	public function SetForm (\MvcCore\Ext\IForm $form) {
 		/** @var $this \MvcCore\Ext\Forms\IField */
 		parent::SetForm($form);
 		$this->checkConfiguration();
@@ -116,7 +116,7 @@ class File
 				static::CONFIG_ERR_NO_ACCEPT_PROPERTY
 			);
 
-		$multipartFormEnctype = \MvcCore\Ext\Forms\IForm::ENCTYPE_MULTIPART;
+		$multipartFormEnctype = \MvcCore\Ext\IForm::ENCTYPE_MULTIPART;
 		if ($this->form->GetEnctype() !== $multipartFormEnctype) 
 			$this->throwConfigException(
 				str_replace(

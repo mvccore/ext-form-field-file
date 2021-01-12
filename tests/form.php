@@ -62,7 +62,7 @@ class Ctrl extends \MvcCore\Controller {
 	public function SubmitAction () {
 		$form = $this->getForm();
 		list($result, $values, $errors) = $form->Submit();
-		if ($result === \MvcCore\Ext\Forms\IForm::RESULT_SUCCESS) {
+		if ($result === \MvcCore\Ext\IForm::RESULT_SUCCESS) {
 			x($values['avatar']);
 			$avatar = current($values['avatar']);
 			$targetFullPath = $this->request->GetAppRoot() . '/Var/' . $avatar->name;
@@ -96,7 +96,7 @@ class Ctrl extends \MvcCore\Controller {
 		$form = (new \MvcCore\Ext\Form($this))
 			->SetId('upload_test')
 			->SetMethod(\MvcCore\IRequest::METHOD_POST)
-			->SetEnctype(\MvcCore\Ext\Forms\IForm::ENCTYPE_MULTIPART)
+			->SetEnctype(\MvcCore\Ext\IForm::ENCTYPE_MULTIPART)
 			->SetAction($this->Url(':Submit'))
 			->SetErrorUrl($this->Url(':Index'))
 			->SetSuccessUrl($this->Url(':Success'));
