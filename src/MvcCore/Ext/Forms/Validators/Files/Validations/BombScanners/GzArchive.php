@@ -36,7 +36,7 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 	protected $gz = NULL;
 
 	/**
-	 * @var \PharData
+	 * @var \PharData|FALSE
 	 */
 	protected $phar = FALSE;
 
