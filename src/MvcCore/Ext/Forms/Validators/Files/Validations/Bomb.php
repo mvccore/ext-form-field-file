@@ -77,6 +77,7 @@ trait Bomb
 	 * @return \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner|NULL
 	 */
 	protected function validateBombGetPossibleType ($fullPath) {
+		if ($this->bombScanners === NULL) return NULL;
 		$spl = new \SplFileObject($fullPath);
 		$spl->rewind();
 		$firstFourBytes = $spl->fread(4);

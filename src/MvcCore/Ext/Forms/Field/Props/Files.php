@@ -463,7 +463,7 @@ trait Files
 	 * Add bomb scanner class(es) to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @param \string[] $bombScannerClasses
+	 * @param \string[] $bombScannerClasses,...
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function AddBombScanners () {
