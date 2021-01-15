@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Forms\Field\Props;
@@ -18,8 +18,8 @@ namespace MvcCore\Ext\Forms\Field\Props;
  * - `\MvcCore\Ext\Forms\Fields\File`
  * - `\MvcCore\Ext\Forms\Validators\Files`
  */
-trait Files
-{
+trait Files {
+
 	/**
 	 * List of allowed file mimetypes or file extensions. 
 	 * All defined file mimetypes are checked with `finfo` PHP extension and checked by
@@ -138,9 +138,9 @@ trait Files
 	 * @var \string[]
 	 */
 	protected $bombScanners = [
-		'\MvcCore\Ext\Forms\Validators\Files\Validations\BombScanners\ZipArchive',
-		'\MvcCore\Ext\Forms\Validators\Files\Validations\BombScanners\PngImage',
-		'\MvcCore\Ext\Forms\Validators\Files\Validations\BombScanners\GzArchive'
+		'\\MvcCore\\Ext\\Forms\\Validators\\Files\\Validations\\BombScanners\\ZipArchive',
+		'\\MvcCore\\Ext\\Forms\\Validators\\Files\\Validations\\BombScanners\\PngImage',
+		'\\MvcCore\\Ext\\Forms\\Validators\\Files\\Validations\\BombScanners\\GzArchive'
 	];
 
 	/**

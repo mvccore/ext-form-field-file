@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view 
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Forms\Validators;
@@ -19,9 +19,9 @@ namespace MvcCore\Ext\Forms\Validators;
  * @see http://php.net/manual/en/features.file-upload.php
  * @see http://php.net/manual/en/features.file-upload.common-pitfalls.php
  */
-interface IFiles
-{
-    /**
+interface IFiles {
+
+	/**
 	 * @see https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file
 	 */
 	const WIN_RESERVED_FILENAMES = 'CON,PRN,AUX,NUL,COM1,COM2,COM3,COM4,COM5,COM6,COM7,COM8,COM9,LPT1,LPT2,LPT3,LPT4,LPT5,LPT6,LPT7,LPT8,LPT9';
@@ -57,7 +57,7 @@ interface IFiles
 	 * proclaimed as archive bomb and it's not uploaded.
 	 * Default value is `1000`.
 	 * @param int $archiveMaxItems Default `1000`.
-	 * @return \MvcCore\Ext\Forms\Validators\IFiles
+	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxItems ($archiveMaxItems = 1000);
 	
@@ -79,7 +79,7 @@ interface IFiles
 	 * more levels than this, it's proclaimed as archive 
 	 * bomb and it's not uploaded. Default value is `3`.
 	 * @param int $archiveMaxLevels Default `3`.
-	 * @return \MvcCore\Ext\Forms\Validators\IFiles
+	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxLevels ($archiveMaxLevels = 3);
 	
@@ -101,7 +101,7 @@ interface IFiles
 	 * it's proclaimed as archive bomb and it's 
 	 * not uploaded.
 	 * @param float $archiveMaxCompressPercentage Default `10.0`.
-	 * @return \MvcCore\Ext\Forms\Validators\IFiles
+	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0);
 	
@@ -122,7 +122,7 @@ interface IFiles
 	 * This limit helps to prevent file bombs 
 	 * based on PNG images. Default value is `10000`.
 	 * @param int $pngImageMaxWidthHeight Default `10.0`.
-	 * @return \MvcCore\Ext\Forms\Validators\IFiles
+	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetPngImageMaxWidthHeight ($pngImageMaxWidthHeight = 10000);
 	
@@ -141,7 +141,7 @@ interface IFiles
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
 	 * @param \string[] $bombScannerClasses
-	 * @return \MvcCore\Ext\Forms\Validators\IFiles
+	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function AddBombScanners ();
 	
@@ -150,7 +150,7 @@ interface IFiles
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
 	 * @param \string[] $bombScannerClasses
-	 * @return \MvcCore\Ext\Forms\Validators\IFiles
+	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetBombScanners ();
 

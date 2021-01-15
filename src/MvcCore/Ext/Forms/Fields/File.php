@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Forms\Fields;
@@ -20,20 +20,27 @@ namespace MvcCore\Ext\Forms\Fields;
  *				   files and check files by `accept` attribute rules by 
  *				   magic bytes.
  */
-class File 
-	extends		\MvcCore\Ext\Forms\Field
-	implements	\MvcCore\Ext\Forms\Fields\IVisibleField, 
-				\MvcCore\Ext\Forms\Fields\ILabel,
-				\MvcCore\Ext\Forms\Fields\IMultiple,
-				\MvcCore\Ext\Forms\Fields\IFiles,
-				\MvcCore\Ext\Forms\Fields\IAlwaysValidate
-{
+class		File 
+extends		\MvcCore\Ext\Forms\Field
+implements	\MvcCore\Ext\Forms\Fields\IVisibleField, 
+			\MvcCore\Ext\Forms\Fields\ILabel,
+			\MvcCore\Ext\Forms\Fields\IMultiple,
+			\MvcCore\Ext\Forms\Fields\IFile,
+			\MvcCore\Ext\Forms\Fields\IAlwaysValidate {
+
 	use \MvcCore\Ext\Forms\Field\Props\VisibleField;
 	use \MvcCore\Ext\Forms\Field\Props\Label;
 	use \MvcCore\Ext\Forms\Field\Props\Multiple;
 	use \MvcCore\Ext\Forms\Field\Props\Files;
 	use \MvcCore\Ext\Forms\Field\Props\Wrapper;
 	
+	/**
+	 * MvcCore Extension - Form - Field - File - version:
+	 * Comparison by PHP function version_compare();
+	 * @see http://php.net/manual/en/function.version-compare.php
+	 */
+	const VERSION = '5.0.0';
+
 	/**
 	 * Default allowed file name characters and characters groups for submit regular expression.
 	 * All regular expression special characters will be escaped by `addcslashes()` 
@@ -78,7 +85,7 @@ class File
 	 * Validators: 
 	 * - `Files` - to check everything necessary for uploaded files and check 
 	 *			   files by `accept` attribute rules by magic bytes.
-	 * @var \string[]|\MvcCore\Ext\Forms\IValidator[]
+	 * @var \string[]|\MvcCore\Ext\Forms\Validator[]
 	 */
 	protected $validators = ['Files'];
 
@@ -92,12 +99,12 @@ class File
 	 * - Set up translate boolean property.
 	 * - Check if there is defined any value for `accept` attribute to validate uploaded files.
 	 * - Check if form has correct `enctype` attribute for uploading files.
-	 * @param \MvcCore\Ext\Form|\MvcCore\Ext\IForm $form
+	 * @param \MvcCore\Ext\Form $form
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Forms\Fields\Select|\MvcCore\Ext\Forms\IField
+	 * @return \MvcCore\Ext\Forms\Fields\Select
 	 */
 	public function SetForm (\MvcCore\Ext\IForm $form) {
-		/** @var $this \MvcCore\Ext\Forms\IField */
+		/** @var $this \MvcCore\Ext\Forms\Field */
 		parent::SetForm($form);
 		$this->checkConfiguration();
 		return $this;

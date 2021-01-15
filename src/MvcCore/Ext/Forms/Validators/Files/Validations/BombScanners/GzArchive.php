@@ -7,16 +7,16 @@
  * For the full copyright and license information, please view 
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Forms\Validators\Files\Validations\BombScanners;
 
-class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner
-{
+class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner {
+
 	/**
-	 * @var \MvcCore\Ext\Forms\Validators\IFiles
+	 * @var \MvcCore\Ext\Forms\Validators\Files
 	 */
 	protected $validator = NULL;
 
@@ -56,36 +56,36 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 	protected $index = 0;
 
 	/**
-     * @param string $firstFourBytes
+	 * @param string $firstFourBytes
 	 * @return bool
-     */
-    static function MatchMagicBytes ($firstFourBytes) {
+	 */
+	static function MatchMagicBytes ($firstFourBytes) {
 		return substr($firstFourBytes, 0, 3) === "\x1f\x8b\x08";
 	}
 
-    /**
-     * @return bool
-     */
-    static function IsArchive () {
+	/**
+	 * @return bool
+	 */
+	static function IsArchive () {
 		return TRUE;
 	}
 
-    /**
-     * @return bool
-     */
-    static function IsSupported () {
+	/**
+	 * @return bool
+	 */
+	static function IsSupported () {
 		return TRUE;
 	}
-
-    /**
-     * @return string
-     */
-    static function GetNotSupportedError () {
+	
+	/**
+	 * @return string
+	 */
+	static function GetNotSupportedError () {
 		return '';
 	}
-
-    /**
-	 * @param \MvcCore\Ext\Forms\Validators\IFiles $validator 
+	
+	/**
+	 * @param \MvcCore\Ext\Forms\Validators\Files $validator 
 	 * @param \SplFileObject $spl 
 	 * @return void
 	 */

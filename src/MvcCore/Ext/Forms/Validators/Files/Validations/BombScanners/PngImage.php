@@ -7,20 +7,20 @@
  * For the full copyright and license information, please view 
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Forms\Validators\Files\Validations\BombScanners;
 
-class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner
-{
+class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner {
+
 	const ERR_INVALID_PNG_FILE = "Uploaded file is inconsistent PNG image (`{1}`).";
 
 	const ERR_INVALID_SIZES = "Uploaded file has invalid sizes (`{1}`).";
 	
 	/**
-	 * @var \MvcCore\Ext\Forms\Validators\IFiles
+	 * @var \MvcCore\Ext\Forms\Validators\Files
 	 */
 	protected $validator = NULL;
 
@@ -39,11 +39,11 @@ class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombS
 	 */
 	protected $invalidSizes = FALSE;
 	
-    /**
-     * @param string $firstFourBytes
+	/**
+	 * @param string $firstFourBytes
 	 * @return bool
-     */
-    public static function MatchMagicBytes ($firstFourBytes) {
+	 */
+	public static function MatchMagicBytes ($firstFourBytes) {
 		return $firstFourBytes === chr(0x89) . "PNG";
 	}
 
@@ -69,7 +69,7 @@ class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombS
 	}
 
 	/**
-	 * @param \MvcCore\Ext\Forms\Validators\IFiles $validator
+	 * @param \MvcCore\Ext\Forms\Validators\Files $validator
 	 * @param \SplFileObject $spl
 	 * @return void
 	 */
@@ -85,18 +85,18 @@ class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombS
 		$this->spl->rewind();
 		$this->spl->fread(12);
 		$ihdrBytes = (string) $this->spl->fread(4);
-        
+		
 		$this->ihdrFound = $ihdrBytes === 'IHDR';
 		
 		if (!$this->ihdrFound) 
 			return FALSE;
-
+		
 		// PNG stores width and height integers in big-endian
 		$widthBinnary = (string) $this->spl->fread(4);
 		$heightBinnary = (string) $this->spl->fread(4);
-        $widthUnpacked = unpack('N', $widthBinnary);
-        $heightUnpacked = unpack('N', $heightBinnary);
-        $width = isset($widthUnpacked[1])
+		$widthUnpacked = unpack('N', $widthBinnary);
+		$heightUnpacked = unpack('N', $heightBinnary);
+		$width = isset($widthUnpacked[1])
 			? $widthUnpacked[1]
 			: 0;
 		$height = isset($heightUnpacked[1])
@@ -112,10 +112,10 @@ class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombS
 		return TRUE;
 	}
 
-    /**
-     * @return int
-     */
-    public function GetCompressedSize () {
+	/**
+	 * @return int
+	 */
+	public function GetCompressedSize () {
 		return $this->spl->getSize();
 	}
 

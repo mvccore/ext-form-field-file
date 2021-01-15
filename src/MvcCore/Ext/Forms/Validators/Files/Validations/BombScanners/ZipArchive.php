@@ -7,14 +7,14 @@
  * For the full copyright and license information, please view 
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Forms\Validators\Files\Validations\BombScanners;
 
-class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner
-{
+class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner {
+
 	const ERR_NO_ZIP_EXT = "System extension to detect dangerous ZIP archives is not installed.";
 	
 	/**
@@ -30,7 +30,7 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	];
 
 	/**
-	 * @var \MvcCore\Ext\Forms\Validators\IFiles
+	 * @var \MvcCore\Ext\Forms\Validators\Files
 	 */
 	protected $validator = NULL;
 
@@ -64,11 +64,11 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	 */
 	protected $entry = NULL;
 	
-    /**
-     * @param string $firstFourBytes
+	/**
+	 * @param string $firstFourBytes
 	 * @return bool
-     */
-    public static function MatchMagicBytes ($firstFourBytes) {
+	 */
+	public static function MatchMagicBytes ($firstFourBytes) {
 		return $firstFourBytes === "PK\3\4";
 	}
 
@@ -94,7 +94,7 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	}
 
 	/**
-	 * @param \MvcCore\Ext\Forms\Validators\IFiles $validator
+	 * @param \MvcCore\Ext\Forms\Validators\Files $validator
 	 * @param \SplFileObject $spl
 	 * @return void
 	 */
@@ -124,10 +124,10 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 		return static::$zipErrors[$this->openResult];
 	}
 
-    /**
-     * @return int
-     */
-    public function GetCompressedSize () {
+	/**
+	 * @return int
+	 */
+	public function GetCompressedSize () {
 		return $this->spl->getSize();
 	}
 
