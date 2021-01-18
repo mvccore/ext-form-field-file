@@ -134,6 +134,7 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 			foreach ($pharFiles as $item) 
 				$this->files[] = $item;
 			$this->index = -1;
+		} catch (\Exception $e) { // backward compatibility
 		} catch (\Throwable $e) {
 		}
 		
