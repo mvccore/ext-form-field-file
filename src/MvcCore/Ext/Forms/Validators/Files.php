@@ -19,6 +19,7 @@ namespace MvcCore\Ext\Forms\Validators;
  * @see http://php.net/manual/en/features.file-upload.php
  * @see http://php.net/manual/en/features.file-upload.common-pitfalls.php
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class		Files 
 extends		\MvcCore\Ext\Forms\Validator
 implements	\MvcCore\Ext\Forms\Validators\IFiles,

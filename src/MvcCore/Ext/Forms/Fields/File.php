@@ -20,6 +20,7 @@ namespace MvcCore\Ext\Forms\Fields;
  *				   files and check files by `accept` attribute rules by 
  *				   magic bytes.
  */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class		File 
 extends		\MvcCore\Ext\Forms\Field
 implements	\MvcCore\Ext\Forms\Fields\IVisibleField, 
@@ -39,7 +40,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.0.0';
+	const VERSION = '5.0.1';
 
 	/**
 	 * Default allowed file name characters and characters groups for submit regular expression.
