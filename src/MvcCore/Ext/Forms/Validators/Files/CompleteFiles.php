@@ -55,7 +55,7 @@ trait CompleteFiles {
 	/**
 	 * Complete local `$this->files` array from given 
 	 * array from request object global `$_FILES`.
-	 * @param array $filesFieldItems 
+	 * @param  array $filesFieldItems 
 	 * @return void
 	 */
 	protected function completeFilesArray (array & $filesFieldItems) {

@@ -65,7 +65,7 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	protected $entry = NULL;
 	
 	/**
-	 * @param string $firstFourBytes
+	 * @param  string $firstFourBytes
 	 * @return bool
 	 */
 	public static function MatchMagicBytes ($firstFourBytes) {
@@ -94,8 +94,8 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	}
 
 	/**
-	 * @param \MvcCore\Ext\Forms\Validators\Files $validator
-	 * @param \SplFileObject $spl
+	 * @param  \MvcCore\Ext\Forms\Validators\Files $validator
+	 * @param  \SplFileObject $spl
 	 * @return void
 	 */
 	public function __construct (\MvcCore\Ext\Forms\Validators\IFiles $validator, \SplFileObject $spl) {
@@ -165,7 +165,7 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	}
 
 	/**
-	 * @param string $destinationFullPath
+	 * @param  string $destinationFullPath
 	 * @return string|NULL
 	 */
 	public function ExtractEntry ($destinationFullPath) {

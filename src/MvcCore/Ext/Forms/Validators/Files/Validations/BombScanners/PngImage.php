@@ -40,7 +40,7 @@ class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombS
 	protected $invalidSizes = FALSE;
 	
 	/**
-	 * @param string $firstFourBytes
+	 * @param  string $firstFourBytes
 	 * @return bool
 	 */
 	public static function MatchMagicBytes ($firstFourBytes) {
@@ -69,8 +69,8 @@ class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombS
 	}
 
 	/**
-	 * @param \MvcCore\Ext\Forms\Validators\Files $validator
-	 * @param \SplFileObject $spl
+	 * @param  \MvcCore\Ext\Forms\Validators\Files $validator
+	 * @param  \SplFileObject $spl
 	 * @return void
 	 */
 	public function __construct (\MvcCore\Ext\Forms\Validators\IFiles $validator, \SplFileObject $spl) {
@@ -161,7 +161,7 @@ class PngImage implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombS
 	}
 
 	/**
-	 * @param string $destinationFullPath
+	 * @param  string $destinationFullPath
 	 * @return string|NULL
 	 */
 	public function ExtractEntry ($destinationFullPath) {

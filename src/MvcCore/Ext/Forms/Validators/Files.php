@@ -15,7 +15,7 @@ namespace MvcCore\Ext\Forms\Validators;
 
 /**
  * Responsibility: Validate everything necessary for uploaded files and check 
- *				   files by `accept` attribute rules by magic bytes.
+ *                 files by `accept` attribute rules by magic bytes.
  * @see http://php.net/manual/en/features.file-upload.php
  * @see http://php.net/manual/en/features.file-upload.common-pitfalls.php
  */
@@ -92,12 +92,12 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	/**
 	 * Uploaded files collection completed from request object from global `$_FILES` array.
 	 * Every item in array is `\stdClass` object with following records:
-	 * - `name`			- string from `$_FILES['name']`, sanitized by `basename()`, by max. length and by allowed characters.
-	 * - `type`			- string from `$_FILES['type']`, checked by `finfo` PHP extension and allowed file extensions for mime type.
-	 * - `tmpFullPath`	- string from `$_FILES['tmp_name']`, checked by `is_uploaded_file()`.
-	 * - `error`		- int from `$_FILES['error']`, always `0` in success upload.
-	 * - `size`			- int from `$_FILES['size']`, checked by `filesize()`,
-	 * - `extension`	- lower case file extension parsed by `pathinfo()` from sanitized `name` record.
+	 * - `name`        - string from `$_FILES['name']`, sanitized by `basename()`, by max. length and by allowed characters.
+	 * - `type`        - string from `$_FILES['type']`, checked by `finfo` PHP extension and allowed file extensions for mime type.
+	 * - `tmpFullPath` - string from `$_FILES['tmp_name']`, checked by `is_uploaded_file()`.
+	 * - `error`       - int from `$_FILES['error']`, always `0` in success upload.
+	 * - `size`        - int from `$_FILES['size']`, checked by `filesize()`,
+	 * - `extension`   - lower case file extension parsed by `pathinfo()` from sanitized `name` record.
 	 * @var \stdClass[]
 	 */
 	protected $files = [];
@@ -135,8 +135,8 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	 * Validate `$_FILES` array items stored in request object. Check if file is valid
 	 * uploaded file, sanitize file name and check file mimetype by `finfo` extension by accept attribute values.
 	 * Return `NULL` for failure or success result as array with `\stdClass`(es) for each file.
-	 * @param string|array	$rawSubmittedValue Raw user input - for this validator always `NULL`.
-	 * @return \stdClass[]|NULL	Safe submitted files array or `NULL` if not possible to return safe value.
+	 * @param  string|array     $rawSubmittedValue Raw user input - for this validator always `NULL`.
+	 * @return \stdClass[]|NULL Safe submitted files array or `NULL` if not possible to return safe value.
 	 */
 	public function Validate ($rawSubmittedValue) {
 		
@@ -181,8 +181,8 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	 * add error message into form session namespace, remove all tmp files and return NULL.
 	 * @see http://php.net/manual/en/features.file-upload.php
 	 * @see http://php.net/manual/en/features.file-upload.common-pitfalls.php
-	 * @param int   $errorNumber
-	 * @param array $errorMsgArgs
+	 * @param  int   $errorNumber
+	 * @param  array $errorMsgArgs
 	 * @return NULL
 	 */
 	protected function handleUploadError ($errorNumber, $errorMsgArgs = []) {

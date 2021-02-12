@@ -21,7 +21,7 @@ trait NameAndExtension {
 	/**
 	 * Sanitize safe file name and sanitize max. file name length
 	 * and add file extension info `$file` `\stdClass` collection.
-	 * @param \stdClass & $file
+	 * @param  \stdClass & $file
 	 * @return void
 	 */
 	protected function validateNameAndExtension (& $file) {

@@ -15,8 +15,8 @@ namespace MvcCore\Ext\Forms\Fields;
 
 /**
  * Responsibility: define getters and setters for field properties: `accept`, 
- * 				   `capture`, `allowedFileNameChars`, `minCount`, `maxCount`,
- * 				   `minSize` and `maxSize`.
+ *                 `capture`, `allowedFileNameChars`, `minCount`, `maxCount`,
+ *                 `minSize` and `maxSize`.
  * Interface for classes:
  * - `\MvcCore\Ext\Forms\Fields\File`
  * - `\MvcCore\Ext\Forms\Validators\Files`
@@ -45,7 +45,7 @@ interface IFile {
 	 * allowed file extensions for defined mime-type.
 	 * Example: `$this->accept = ['image/*', 'audio/mp3', '.docx'];`
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept
-	 * @param \string[] $accept 
+	 * @param  \string[] $accept 
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetAccept (array $accept = []);
@@ -64,7 +64,7 @@ interface IFile {
 	 * device's sensors using a media capture mechanism is preferred, 
 	 * such as a webcam or microphone. This HTML attribute is used on mobile devices.
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-capture
-	 * @param string|NULL $capture 
+	 * @param  string|NULL $capture 
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetCapture ($capture = 'camera');
@@ -87,7 +87,7 @@ interface IFile {
 	 * and characters groups presented in this variable. If there are not defined any 
 	 * characters, there is used in submit filename sanitization PHP constant: 
 	 * `\MvcCore\Ext\Forms\Validators\Files::ALLOWED_FILE_NAME_CHARS_DEFAULT`;
-	 * @param string|NULL $allowedFileNameChars
+	 * @param  string|NULL $allowedFileNameChars
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetAllowedFileNameChars ($allowedFileNameChars);
@@ -106,7 +106,7 @@ interface IFile {
 	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|NULL $minCount
+	 * @param  int|NULL $minCount
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetMinCount ($minCount);
@@ -125,7 +125,7 @@ interface IFile {
 	 * This attribute is not HTML5, it's rendered as `data-max-count="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|NULL $maxCount
+	 * @param  int|NULL $maxCount
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetMaxCount ($maxCount);
@@ -144,7 +144,7 @@ interface IFile {
 	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|NULL $minSize
+	 * @param  int|NULL $minSize
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetMinSize ($minSize);
@@ -163,7 +163,7 @@ interface IFile {
 	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|NULL $maxSize
+	 * @param  int|NULL $maxSize
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetMaxSize ($maxSize);
@@ -174,7 +174,7 @@ interface IFile {
 	 * has more files inside than this number, it's 
 	 * proclaimed as archive bomb and it's not uploaded.
 	 * Default value is `1000`.
-	 * @param int $archiveMaxItems Default `1000`.
+	 * @param  int $archiveMaxItems Default `1000`.
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetArchiveMaxItems ($archiveMaxItems = 1000);
@@ -196,7 +196,7 @@ interface IFile {
 	 * level for nested ZIP archives. If Archive contains 
 	 * more levels than this, it's proclaimed as archive 
 	 * bomb and it's not uploaded. Default value is `3`.
-	 * @param int $archiveMaxLevels Default `3`.
+	 * @param  int $archiveMaxLevels Default `3`.
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetArchiveMaxLevels ($archiveMaxLevels = 3);
@@ -218,7 +218,7 @@ interface IFile {
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
 	 * not uploaded.
-	 * @param float $archiveMaxCompressPercentage Default `10.0`.
+	 * @param  float $archiveMaxCompressPercentage Default `10.0`.
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0);
@@ -239,7 +239,7 @@ interface IFile {
 	 * those images could be used as ZIP bombs.
 	 * This limit helps to prevent file bombs 
 	 * based on PNG images. Default value is `10000`.
-	 * @param int $pngImageMaxWidthHeight Default `10.0`.
+	 * @param  int $pngImageMaxWidthHeight Default `10.0`.
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetPngImageMaxWidthHeight ($pngImageMaxWidthHeight = 10000);
@@ -258,7 +258,7 @@ interface IFile {
 	 * Add bomb scanner class(es) to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @param \string[] $bombScannerClasses,...
+	 * @param  \string[] $bombScannerClasses,...
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function AddBombScanners ();
@@ -267,7 +267,7 @@ interface IFile {
 	 * Set bomb scanner class(es) to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @param \string[] $bombScannerClasses
+	 * @param  \string[] $bombScannerClasses
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
 	public function SetBombScanners ();

@@ -21,10 +21,10 @@ trait MimeTypeAndExtension {
 	/**
 	 * Validate file by allowed mime type if any mime type defined 
 	 * by `finfo_file()` and by allowed file extension.
-	 * @param \stdClass & $file
+	 * @param  \stdClass $file
 	 * @return bool|NULL
 	 */
-	protected function validateMimeTypeAndExtension (& $file) {
+	protected function validateMimeTypeAndExtension ($file) {
 		$allowed = FALSE;
 		$finfo = finfo_open(FILEINFO_MIME);
 		$fileRealMimeType = @finfo_file($finfo, $file->tmpFullPath);

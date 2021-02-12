@@ -18,7 +18,7 @@ interface IBombScanner {
 	/**
 	 * Return `TRUE` if given first 4 file 
 	 * magic bytes belongs to the file type.
-	 * @param string $firstFourBytes
+	 * @param  string $firstFourBytes
 	 * @return bool
 	 */
 	public static function MatchMagicBytes ($firstFourBytes);
@@ -44,8 +44,8 @@ interface IBombScanner {
 	/**
 	 * Create and instance of uploaded file or file extracted 
 	 * from any uploaded archove or sub-archive.
-	 * @param \MvcCore\Ext\Forms\Validators\Files $validator
-	 * @param \SplFileObject $spl
+	 * @param  \MvcCore\Ext\Forms\Validators\Files $validator
+	 * @param  \SplFileObject $spl
 	 * @return void
 	 */
 	public function __construct (\MvcCore\Ext\Forms\Validators\IFiles $validator, \SplFileObject $spl);
@@ -95,7 +95,7 @@ interface IBombScanner {
 	
 	/**
 	 * Extract archive entry into given full path.
-	 * @param string $destinationFullPath
+	 * @param  string $destinationFullPath
 	 * @return string|NULL
 	 */
 	public function ExtractEntry ($destinationFullPath);

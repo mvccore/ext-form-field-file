@@ -56,7 +56,7 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 	protected $index = 0;
 
 	/**
-	 * @param string $firstFourBytes
+	 * @param  string $firstFourBytes
 	 * @return bool
 	 */
 	static function MatchMagicBytes ($firstFourBytes) {
@@ -85,8 +85,8 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 	}
 	
 	/**
-	 * @param \MvcCore\Ext\Forms\Validators\Files $validator 
-	 * @param \SplFileObject $spl 
+	 * @param  \MvcCore\Ext\Forms\Validators\Files $validator 
+	 * @param  \SplFileObject $spl 
 	 * @return void
 	 */
 	public function __construct (\MvcCore\Ext\Forms\Validators\IFiles $validator, \SplFileObject $spl) {
@@ -218,7 +218,7 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 	}
 
 	/**
-	 * @param string $destinationFullPath
+	 * @param  string $destinationFullPath
 	 * @return string|NULL
 	 */
 	public function ExtractEntry ($destinationFullPath) {
@@ -240,8 +240,8 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 	}
 
 	/**
-	 * @param string $a 
-	 * @param string $b 
+	 * @param  string $a 
+	 * @param  string $b 
 	 * @return bool
 	 */
 	protected function filesAreEqual ($a, $b) {

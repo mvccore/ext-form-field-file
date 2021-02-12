@@ -168,7 +168,7 @@ trait Files {
 	 * allowed file extensions for defined mime-type.
 	 * Example: `$this->accept = ['image/*', 'audio/mp3', '.docx'];`
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept
-	 * @param \string[] $accept 
+	 * @param  \string[] $accept 
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetAccept (array $accept = []) {
@@ -194,7 +194,7 @@ trait Files {
 	 * device's sensors using a media capture mechanism is preferred, 
 	 * such as a webcam or microphone. This HTML attribute is used on mobile devices.
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-capture
-	 * @param string|NULL $capture 
+	 * @param  string|NULL $capture 
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetCapture ($capture = 'camera') {
@@ -224,7 +224,7 @@ trait Files {
 	 * and characters groups presented in this variable. If there are not defined any 
 	 * characters, there is used in submit filename sanitization PHP constant: 
 	 * `static::ALLOWED_FILE_NAME_CHARS_DEFAULT`;
-	 * @param string|NULL $allowedFileNameChars
+	 * @param  string|NULL $allowedFileNameChars
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetAllowedFileNameChars ($allowedFileNameChars) {
@@ -250,7 +250,7 @@ trait Files {
 	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|NULL $minCount
+	 * @param  int|NULL $minCount
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMinCount ($minCount) {
@@ -276,7 +276,7 @@ trait Files {
 	 * This attribute is not HTML5, it's rendered as `data-max-count="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|NULL $maxCount
+	 * @param  int|NULL $maxCount
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMaxCount ($maxCount) {
@@ -303,7 +303,7 @@ trait Files {
 	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|NULL $minSize
+	 * @param  int|NULL $minSize
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMinSize ($minSize) {
@@ -333,7 +333,7 @@ trait Files {
 	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param int|string|NULL $maxSize
+	 * @param  int|string|NULL $maxSize
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMaxSize ($maxSize) {
@@ -351,7 +351,7 @@ trait Files {
 	 * has more files inside than this number, it's 
 	 * proclaimed as archive bomb and it's not uploaded.
 	 * Default value is `1000`.
-	 * @param int $archiveMaxItems Default `1000`.
+	 * @param  int $archiveMaxItems Default `1000`.
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxItems ($archiveMaxItems = 1000) {
@@ -380,7 +380,7 @@ trait Files {
 	 * level for nested ZIP archives. If Archive contains 
 	 * more levels than this, it's proclaimed as archive 
 	 * bomb and it's not uploaded. Default value is `3`.
-	 * @param int $archiveMaxLevels Default `3`.
+	 * @param  int $archiveMaxLevels Default `3`.
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxLevels ($archiveMaxLevels = 3) {
@@ -409,7 +409,7 @@ trait Files {
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
 	 * not uploaded.
-	 * @param float $archiveMaxCompressPercentage Default `10.0`.
+	 * @param  float $archiveMaxCompressPercentage Default `10.0`.
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0) {
@@ -437,7 +437,7 @@ trait Files {
 	 * those images could be used as ZIP bombs.
 	 * This limit helps to prevent file bombs 
 	 * based on PNG images. Default value is `10000`.
-	 * @param int $pngImageMaxWidthHeight Default `10.0`.
+	 * @param  int $pngImageMaxWidthHeight Default `10.0`.
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetPngImageMaxWidthHeight ($pngImageMaxWidthHeight = 10000) {
@@ -463,7 +463,7 @@ trait Files {
 	 * Add bomb scanner class(es) to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @param \string[] $bombScannerClasses,...
+	 * @param  \string[] $bombScannerClasses,...
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function AddBombScanners () {
@@ -486,7 +486,7 @@ trait Files {
 	 * Set bomb scanner class(es) to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @param \string[] $bombScannerClasses
+	 * @param  \string[] $bombScannerClasses
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetBombScanners () {

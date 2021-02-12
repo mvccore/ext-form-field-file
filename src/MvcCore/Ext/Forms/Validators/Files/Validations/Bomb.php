@@ -22,9 +22,9 @@ trait Bomb {
 
 	/**
 	 * Try to detect archive bomb if necessary.
-	 * @param string $tmpFullPath
-	 * @param string $uploadedFileName
-	 * @param int $level
+	 * @param  string $tmpFullPath
+	 * @param  string $uploadedFileName
+	 * @param  int $level
 	 * @return bool|NULL
 	 */
 	protected function validateBomb (& $file) {
@@ -53,9 +53,9 @@ trait Bomb {
 
 	/**
 	 * Try to detect file bomb recursively.
-	 * @param string    $fullPath 
-	 * @param \stdClass $recursiveInfo 
-	 * @param int       $level 
+	 * @param  string    $fullPath 
+	 * @param  \stdClass $recursiveInfo 
+	 * @param  int       $level 
 	 * @return \stdClass
 	 */
 	protected function validateBombRecursive (
@@ -73,7 +73,7 @@ trait Bomb {
 	
 	/**
 	 * Get possible file bomb type by first magic bytes.
-	 * @param string $fullPath 
+	 * @param  string $fullPath 
 	 * @return \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner|NULL
 	 */
 	protected function validateBombGetPossibleType ($fullPath) {
@@ -90,9 +90,9 @@ trait Bomb {
 
 	/**
 	 * Try to detect ZIP bomb recursively.
-	 * @param IBombScanner $adapter 
-	 * @param \stdClass    $recursiveInfo 
-	 * @param int          $level 
+	 * @param  IBombScanner $adapter 
+	 * @param  \stdClass    $recursiveInfo 
+	 * @param  int          $level 
 	 * @return \stdClass
 	 */
 	protected function validateBombRecursiveArchive (
@@ -174,9 +174,9 @@ trait Bomb {
 	 * Complete all nested items size recursivelly.
 	 * If there is detected any ZIP bomb aspect, 
 	 * stop the recursion.
-	 * @param IBombScanner $adapter
-	 * @param \stdClass    $recursiveInfo 
-	 * @param int          $level 
+	 * @param  IBombScanner $adapter
+	 * @param  \stdClass    $recursiveInfo 
+	 * @param  int          $level 
 	 * @return \stdClass
 	 */
 	protected function validateBombRecursiveArchiveEntriesSize (
@@ -238,7 +238,7 @@ trait Bomb {
 	}
 
 	/**
-	 * @param string $fullPath 
+	 * @param  string $fullPath 
 	 * @return void
 	 */
 	protected function removeItemWithDir ($itemFullPath) {

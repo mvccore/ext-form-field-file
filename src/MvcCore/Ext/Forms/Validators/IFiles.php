@@ -15,7 +15,7 @@ namespace MvcCore\Ext\Forms\Validators;
 
 /**
  * Responsibility: Validate everything necessary for uploaded files and check 
- *				   files by `accept` attribute rules by magic bytes.
+ *                 files by `accept` attribute rules by magic bytes.
  * @see http://php.net/manual/en/features.file-upload.php
  * @see http://php.net/manual/en/features.file-upload.common-pitfalls.php
  */
@@ -56,7 +56,7 @@ interface IFiles {
 	 * has more files inside than this number, it's 
 	 * proclaimed as archive bomb and it's not uploaded.
 	 * Default value is `1000`.
-	 * @param int $archiveMaxItems Default `1000`.
+	 * @param  int $archiveMaxItems Default `1000`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxItems ($archiveMaxItems = 1000);
@@ -78,7 +78,7 @@ interface IFiles {
 	 * level for nested ZIP archives. If Archive contains 
 	 * more levels than this, it's proclaimed as archive 
 	 * bomb and it's not uploaded. Default value is `3`.
-	 * @param int $archiveMaxLevels Default `3`.
+	 * @param  int $archiveMaxLevels Default `3`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxLevels ($archiveMaxLevels = 3);
@@ -100,7 +100,7 @@ interface IFiles {
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
 	 * not uploaded.
-	 * @param float $archiveMaxCompressPercentage Default `10.0`.
+	 * @param  float $archiveMaxCompressPercentage Default `10.0`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0);
@@ -121,7 +121,7 @@ interface IFiles {
 	 * those images could be used as ZIP bombs.
 	 * This limit helps to prevent file bombs 
 	 * based on PNG images. Default value is `10000`.
-	 * @param int $pngImageMaxWidthHeight Default `10.0`.
+	 * @param  int $pngImageMaxWidthHeight Default `10.0`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetPngImageMaxWidthHeight ($pngImageMaxWidthHeight = 10000);
@@ -140,7 +140,7 @@ interface IFiles {
 	 * Add bomb scanner class(es) to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @param \string[] $bombScannerClasses
+	 * @param  \string[] $bombScannerClasses
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function AddBombScanners ();
@@ -149,7 +149,7 @@ interface IFiles {
 	 * Set bomb scanner class(es) to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @param \string[] $bombScannerClasses
+	 * @param  \string[] $bombScannerClasses
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetBombScanners ();

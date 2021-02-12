@@ -15,7 +15,7 @@ namespace MvcCore\Ext\Forms\Validators\Files;
 
 /**
  * Responsibility: Read accept configuration and prepare 
- *				   all mime types and extensions.
+ *                 all mime types and extensions.
  */
 trait ReadAccept {
 
@@ -99,7 +99,7 @@ trait ReadAccept {
 
 	/**
 	 * Prepare regular expression match pattern from mimetype string.
-	 * @param string $mimeType 
+	 * @param  string $mimeType 
 	 * @return string
 	 */
 	protected function readAcceptPrepareMimeTypeRegExp ($mimeType) {

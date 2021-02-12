@@ -20,7 +20,7 @@ trait FileAndSize {
 
 	/**
 	 * Check file by `is_uploaded_file()`, `is_file()` and by `filesize()`.
-	 * @param \stdClass & $file
+	 * @param  \stdClass & $file
 	 * @return bool|NULL
 	 */
 	protected function validateFileAndSize (& $file) {

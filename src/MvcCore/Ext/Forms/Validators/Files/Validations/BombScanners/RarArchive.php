@@ -19,7 +19,7 @@ namespace MvcCore\Ext\Forms\Validators\Files\Validations\BombScanners;
 class RarArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner {
 
 	/**
-	 * @param string $firstFourBytes
+	 * @param  string $firstFourBytes
 	 * @return bool
 	 */
 	static function MatchMagicBytes ($firstFourBytes) {
@@ -48,8 +48,8 @@ class RarArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	}
 
 	/**
-	 * @param \MvcCore\Ext\Forms\Validators\Files $validator 
-	 * @param \SplFileObject $spl 
+	 * @param  \MvcCore\Ext\Forms\Validators\Files $validator 
+	 * @param  \SplFileObject $spl 
 	 * @return void
 	 */
 	public function __construct (\MvcCore\Ext\Forms\Validators\IFiles $validator, \SplFileObject $spl) {
@@ -98,7 +98,7 @@ class RarArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 	}
 
 	/**
-	 * @param string $destinationFullPath
+	 * @param  string $destinationFullPath
 	 * @return string|NULL
 	 */
 	public function ExtractEntry ($destinationFullPath) {

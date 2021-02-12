@@ -15,10 +15,10 @@ namespace MvcCore\Ext\Forms\Fields;
 
 /**
  * Responsibility: init, pre-dispatch and render `<input>` HTML element 
- *				   with type `file`. `File` field has it's own validator 
- *				   `Files` to check everything necessary for uploaded 
- *				   files and check files by `accept` attribute rules by 
- *				   magic bytes.
+ *                 with type `file`. `File` field has it's own validator 
+ *                 `Files` to check everything necessary for uploaded 
+ *                 files and check files by `accept` attribute rules by 
+ *                 magic bytes.
  */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class		File 
@@ -40,7 +40,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.0.1';
+	const VERSION = '5.1.2';
 
 	/**
 	 * Default allowed file name characters and characters groups for submit regular expression.
@@ -85,7 +85,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	/**
 	 * Validators: 
 	 * - `Files` - to check everything necessary for uploaded files and check 
-	 *			   files by `accept` attribute rules by magic bytes.
+	 *             files by `accept` attribute rules by magic bytes.
 	 * @var \string[]|\MvcCore\Ext\Forms\Validator[]
 	 */
 	protected $validators = ['Files'];
@@ -100,7 +100,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * - Set up translate boolean property.
 	 * - Check if there is defined any value for `accept` attribute to validate uploaded files.
 	 * - Check if form has correct `enctype` attribute for uploading files.
-	 * @param \MvcCore\Ext\Form $form
+	 * @param  \MvcCore\Ext\Form $form
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Forms\Fields\Select
 	 */
@@ -200,7 +200,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 
 	/**
 	 * Return field specific data for validator.
-	 * @param array $fieldPropsDefaultValidValues 
+	 * @param  array $fieldPropsDefaultValidValues 
 	 * @return array
 	 */
 	public function & GetValidatorData ($fieldPropsDefaultValidValues = []) {
@@ -274,7 +274,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 
 	/**
 	 * Throw an configuration exception by given error number.
-	 * @param int   $errorNumber
+	 * @param  int   $errorNumber
 	 * @throws \InvalidArgumentException
 	 * @return void
 	 */
