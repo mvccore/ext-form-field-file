@@ -127,10 +127,8 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 		$multipartFormEnctype = \MvcCore\Ext\IForm::ENCTYPE_MULTIPART;
 		if ($this->form->GetEnctype() !== $multipartFormEnctype) 
 			$this->throwConfigException(
-				str_replace(
-					'{0}', $multipartFormEnctype,
-					static::CONFIG_ERR_WRONG_FORM_ENCTYPE
-				)
+				static::CONFIG_ERR_WRONG_FORM_ENCTYPE,
+				[$multipartFormEnctype]
 			);
 
 		$rawFileUploads = @ini_get("file_uploads");
@@ -280,6 +278,8 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 */
 	protected function throwConfigException ($errorNumber, $errorMsgArgs = []) {
 		$errorMessage = static::$configErrorMessages[$errorNumber];
+		$formViewClass = $this->form->GetViewClass();
+		$errorMessage = $formViewClass::Format($errorMessage, $errorMsgArgs);
 		$this->throwNewInvalidArgumentException(
 			$errorMessage
 		);
