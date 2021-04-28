@@ -130,7 +130,7 @@ class GzArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBomb
 				\Phar::SKIP_DOTS
 			);
 			$pharFiles = new \RecursiveIteratorIterator($this->phar, \RecursiveIteratorIterator::LEAVES_ONLY);
-			/** @var $item \PharFileInfo */
+			/** @var \PharFileInfo $item */
 			foreach ($pharFiles as $item) 
 				$this->files[] = $item;
 			$this->index = -1;

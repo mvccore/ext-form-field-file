@@ -15,6 +15,7 @@ namespace MvcCore\Ext\Forms\Validators\Files;
 
 /**
  * Responsibility: Check required functions and extensions installed.
+ * @mixin \MvcCore\Ext\Forms\Validators\Files
  */
 trait CheckRequirements {
 

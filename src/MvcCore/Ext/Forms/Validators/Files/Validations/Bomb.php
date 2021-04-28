@@ -17,6 +17,7 @@ use \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner;
 
 /**
  * Responsibility: Detect if uploaded file is not ZIP or PNG bomb.
+ * @mixin \MvcCore\Ext\Forms\Validators\Files
  */
 trait Bomb {
 
@@ -81,7 +82,7 @@ trait Bomb {
 		$spl = new \SplFileObject($fullPath);
 		$spl->rewind();
 		$firstFourBytes = $spl->fread(4);
-		/** @var $bombScannerClass \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner */
+		/** @var \MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner $bombScannerClass */
 		foreach ($this->bombScanners as $bombScannerClass) 
 			if ($bombScannerClass::MatchMagicBytes($firstFourBytes)) 
 				return new $bombScannerClass($this, $spl);

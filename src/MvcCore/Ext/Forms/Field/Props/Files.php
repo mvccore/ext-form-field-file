@@ -17,6 +17,7 @@ namespace MvcCore\Ext\Forms\Field\Props;
  * Trait for classes:
  * - `\MvcCore\Ext\Forms\Fields\File`
  * - `\MvcCore\Ext\Forms\Validators\Files`
+ * @mixin \MvcCore\Ext\Forms\Field
  */
 trait Files {
 
@@ -155,7 +156,6 @@ trait Files {
 	 * @return \string[]
 	 */
 	public function GetAccept () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->accept;
 	}
 
@@ -172,7 +172,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetAccept (array $accept = []) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->accept = $accept;
 		return $this;
 	}
@@ -185,7 +184,6 @@ trait Files {
 	 * @return string|NULL
 	 */
 	public function GetCapture () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->capture;
 	}
 
@@ -198,7 +196,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetCapture ($capture = 'camera') {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->capture = $capture;
 		return $this;
 	}
@@ -213,7 +210,6 @@ trait Files {
 	 * @return string|NULL
 	 */
 	public function GetAllowedFileNameChars () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->allowedFileNameChars;
 	}
 
@@ -228,7 +224,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetAllowedFileNameChars ($allowedFileNameChars) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->allowedFileNameChars = $allowedFileNameChars;
 		return $this;
 	}
@@ -241,7 +236,6 @@ trait Files {
 	 * @return int|NULL
 	 */
 	public function GetMinCount () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->minCount;
 	}
 
@@ -254,7 +248,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMinCount ($minCount) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->minCount = $minCount === NULL ? NULL : intval($minCount);
 		return $this;
 	}
@@ -267,7 +260,6 @@ trait Files {
 	 * @return int|NULL
 	 */
 	public function GetMaxCount () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->maxCount;
 	}
 
@@ -280,7 +272,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMaxCount ($maxCount) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->maxCount = $maxCount === NULL ? NULL : intval($maxCount);
 		return $this;
 	}
@@ -293,7 +284,6 @@ trait Files {
 	 * @return int|NULL
 	 */
 	public function GetMinSize () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->minSize;
 	}
 
@@ -307,7 +297,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMinSize ($minSize) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		if ($minSize !== NULL)
 			$this->minSize = \MvcCore\Ext\Form::ConvertBytesFromHumanForm(
 				$minSize
@@ -323,7 +312,6 @@ trait Files {
 	 * @return int|NULL
 	 */
 	public function GetMaxSize () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->maxSize;
 	}
 
@@ -337,7 +325,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetMaxSize ($maxSize) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		if ($maxSize !== NULL)
 			$this->maxSize = \MvcCore\Ext\Form::ConvertBytesFromHumanForm(
 				$maxSize
@@ -355,7 +342,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxItems ($archiveMaxItems = 1000) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->archiveMaxItems = $archiveMaxItems;
 		return $this;
 	}
@@ -369,7 +355,6 @@ trait Files {
 	 * @return int
 	 */
 	public function GetArchiveMaxItems () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->archiveMaxItems;
 	}
 
@@ -384,7 +369,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxLevels ($archiveMaxLevels = 3) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->archiveMaxLevels = $archiveMaxLevels;
 		return $this;
 	}
@@ -399,7 +383,6 @@ trait Files {
 	 * @return int
 	 */
 	public function GetArchiveMaxLevels () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->archiveMaxLevels;
 	}
 
@@ -413,7 +396,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->archiveMaxCompressPercentage = $archiveMaxCompressPercentage;
 		return $this;
 	}
@@ -427,7 +409,6 @@ trait Files {
 	 * @return float
 	 */
 	public function GetArchiveMaxCompressPercentage () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->archiveMaxCompressPercentage;
 	}
 
@@ -441,7 +422,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetPngImageMaxWidthHeight ($pngImageMaxWidthHeight = 10000) {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$this->pngImageMaxWidthHeight = $pngImageMaxWidthHeight;
 		return $this;
 	}
@@ -455,7 +435,6 @@ trait Files {
 	 * @return int
 	 */
 	public function GetPngImageMaxWidthHeight () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->pngImageMaxWidthHeight;
 	}
 
@@ -467,7 +446,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function AddBombScanners () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$args = func_get_args();
 		if (count($args) === 1 && is_array($args)) {
 			$bombScannerClasses = $args[0];
@@ -490,7 +468,6 @@ trait Files {
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetBombScanners () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		$args = func_get_args();
 		if (count($args) === 1 && is_array($args)) {
 			$this->bombScanners = $args[0];
@@ -507,7 +484,6 @@ trait Files {
 	 * @return \string[]
 	 */
 	public function GetBombScanners () {
-		/** @var $this \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files */
 		return $this->bombScanners;
 	}
 }

@@ -16,6 +16,7 @@ namespace MvcCore\Ext\Forms\Validators\Files;
 /**
  * Responsibility: Read accept configuration and prepare 
  *                 all mime types and extensions.
+ * @mixin \MvcCore\Ext\Forms\Validators\Files
  */
 trait ReadAccept {
 

@@ -15,6 +15,7 @@ namespace MvcCore\Ext\Forms\Validators\Files;
 
 /**
  * Responsibility: Complete uploaded files from request object.
+ * @mixin \MvcCore\Ext\Forms\Validators\Files
  */
 trait CompleteFiles {
 

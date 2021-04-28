@@ -115,6 +115,103 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	 */
 	protected $uploadsTmpDir = NULL;
 
+	
+	/**
+	 * Create files validator instance.
+	 * 
+	 * @param  array     $cfg
+	 * Config array with protected properties and it's 
+	 * values which you want to configure, presented 
+	 * in camel case properties names syntax.
+	 * 
+	 * @param  \string[] $accept
+	 * List of allowed file mimetypes or file extensions. 
+	 * All defined file mimetypes are checked with `finfo` PHP extension and checked by
+	 * allowed file extensions for defined mimetype.
+	 * All defined file extensions are translated internally on server side into mimetypes,
+	 * then checked with `finfo` PHP extension and checked by
+	 * allowed file extensions for defined mimetype.
+	 * Example: `$this->accept = ['image/*', 'audio/mp3', '.docx'];`
+	 * @param  string    $allowedFileNameChars
+	 * Allowed file name characters and characters groups for submit regular expression.
+	 * All regular expression special characters will be escaped by `addcslashes()` 
+	 * function to create proper regular expression pattern to keep only characters 
+	 * and characters groups presented in this variable. If there are not defined any 
+	 * characters, there is used in submit filename sanitization PHP constant: 
+	 * `static::ALLOWED_FILE_NAME_CHARS_DEFAULT`;
+	 * @param  int       $minCount
+	 * Minimum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param  int       $maxCount
+	 * Maximum uploaded files count. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-count="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param  int       $minSize
+	 * Minimum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param  int       $maxSize
+	 * Maximum uploaded file size for one uploaded item in bytes. `NULL` by default.
+	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
+	 * Attribute is not used on client side by default, but you can do it, it's
+	 * only checked if attribute is not `NULL` in submit processing.
+	 * @param  int       $archiveMaxItems
+	 * Maximum number of allowed files count inside 
+	 * single uploaded archive file. If uploaded archive 
+	 * has more files inside than this number, it's 
+	 * proclaimed as archive bomb and it's not uploaded.
+	 * Default value is `1000`.
+	 * @param  int       $archiveMaxLevels
+	 * Maximum number of allowed ZIP archive levels inside.
+	 * If uploaded archive contains another zip archive and
+	 * those archive another and another, this is maximum
+	 * level for nested ZIP archives. If Archive contains 
+	 * more levels than this, it's proclaimed as archive 
+	 * bomb and it's not uploaded. Default value is `3`.
+	 * @param  float     $archiveMaxCompressPercentage
+	 * Maximum archive compression percentage.
+	 * If archive file has lower percentage size
+	 * than all archive file items together, 
+	 * it's proclaimed as archive bomb and it's 
+	 * not uploaded. Default value is `10000`.
+	 * @param  int       $pngImageMaxWidthHeight
+	 * PNG image maximum width or maximum height.
+	 * PNG images use ZIP compression and that's why 
+	 * those images could be used as ZIP bombs.
+	 * This limit helps to prevent file bombs 
+	 * based on PNG images.
+	 * @param  \string[] $bombScanners
+	 * Bomb scanner classes to scan uploaded files for file bombs.
+	 * All classes in this list must implement interface:
+	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
+	 * 
+	 * @throws \InvalidArgumentException 
+	 * @return void
+	 */
+	public function __construct(
+		array $cfg = [],
+		$multiple = NULL,
+		array $accept = [],
+		$allowedFileNameChars = NULL,
+		$minCount = NULL,
+		$maxCount = NULL,
+		$minSize = NULL,
+		$maxSize = NULL,
+		$archiveMaxItems = NULL,
+		$archiveMaxLevels = NULL,
+		$archiveMaxCompressPercentage = NULL,
+		$pngImageMaxWidthHeight = NULL,
+		array $bombScanners = []
+	) {
+		$this->consolidateCfg($cfg, func_get_args(), func_num_args());
+		parent::__construct($cfg);
+	}
+
+
 	/**
 	 * Complete uploaded files temporary directory.
 	 * @return string

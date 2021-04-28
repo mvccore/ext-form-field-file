@@ -14,7 +14,8 @@
 namespace MvcCore\Ext\Forms\Validators\Files\Validations;
 
 /**
- * Responsibility: 
+ * Responsibility: Validate file and size.
+ * @mixin \MvcCore\Ext\Forms\Validators\Files
  */
 trait FileAndSize {
 

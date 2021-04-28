@@ -14,7 +14,8 @@
 namespace MvcCore\Ext\Forms\Validators\Files\Validations;
 
 /**
- * Responsibility: 
+ * Responsibility: Validate mime type and extension.
+ * @mixin \MvcCore\Ext\Forms\Validators\Files
  */
 trait MimeTypeAndExtension {
 

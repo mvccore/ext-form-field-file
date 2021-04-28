@@ -14,7 +14,8 @@
 namespace MvcCore\Ext\Forms\Validators\Files\Validations;
 
 /**
- * Responsibility: 
+ * Responsibility: Validate file name and extension.
+ * @mixin \MvcCore\Ext\Forms\Validators\Files
  */
 trait NameAndExtension {
 
