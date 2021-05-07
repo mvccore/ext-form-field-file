@@ -40,7 +40,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.1.4';
+	const VERSION = '5.1.5';
 
 	/**
 	 * Default allowed file name characters and characters groups for submit regular expression.
@@ -103,6 +103,8 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * Form field specific name, used to identify submitted value.
 	 * This value is required for all form fields.
 	 * @param  string       $type 
+	 * Fixed field order number, null by default.
+	 * @param  int          $fieldOrder
 	 * Form field type, used in `<input type="...">` attribute value.
 	 * Every typed field has it's own string value, but base field type 
 	 * `\MvcCore\Ext\Forms\Field` has `NULL`.
@@ -322,6 +324,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 
 		$name = NULL,
 		$type = NULL,
+		$fieldOrder = NULL,
 		$value = NULL,
 		$title = NULL,
 		$translate = NULL,
