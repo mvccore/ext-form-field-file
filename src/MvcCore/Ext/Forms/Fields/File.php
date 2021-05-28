@@ -40,7 +40,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.1.5';
+	const VERSION = '5.1.6';
 
 	/**
 	 * Default allowed file name characters and characters groups for submit regular expression.
