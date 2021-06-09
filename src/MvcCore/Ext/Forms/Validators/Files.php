@@ -44,30 +44,30 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	 */
 	protected static $errorMessages = [
 		UPLOAD_ERR_OK						=> "There is no error, the file uploaded with success.",				// 0
-		UPLOAD_ERR_INI_SIZE					=> "Uploaded file exceeds maximum size to upload. (`{1}` bytes).",		// 1
+		UPLOAD_ERR_INI_SIZE					=> "Uploaded file exceeds maximum size to upload. ('{1}' bytes).",		// 1
 		/** @bugfix: http://php.net/manual/en/features.file-upload.php#74692 */
-		//UPLOAD_ERR_FORM_SIZE				=> "Uploaded file exceeds max. size to upload: `{1}`.",					// 2
+		//UPLOAD_ERR_FORM_SIZE				=> "Uploaded file exceeds max. size to upload: '{1}'.",					// 2
 		UPLOAD_ERR_PARTIAL					=> "Uploaded file was only partially uploaded.",						// 3
 		UPLOAD_ERR_NO_FILE					=> "No file was uploaded.",												// 4
 		UPLOAD_ERR_NO_TMP_DIR				=> "Missing a temporary folder for uploaded file.",						// 6
 		UPLOAD_ERR_CANT_WRITE				=> "Failed to write uploaded file to disk.",							// 7
 		UPLOAD_ERR_EXTENSION				=> "System extension stopped the file upload.",							// 8
-		self::UPLOAD_ERR_MIN_FILES			=> "Field allows to upload `{1}` file(s) at minimum.",					// 9
-		self::UPLOAD_ERR_MAX_FILES			=> "Field allows to upload `{1}` file(s) at maximum.",					// 10
+		self::UPLOAD_ERR_MIN_FILES			=> "Field allows to upload '{1}' file(s) at minimum.",					// 9
+		self::UPLOAD_ERR_MAX_FILES			=> "Field allows to upload '{1}' file(s) at maximum.",					// 10
 		self::UPLOAD_ERR_NOT_POSTED			=> "File wasn't uploaded via HTTP POST.",								// 11
 		self::UPLOAD_ERR_NOT_FILE			=> "Uploaded file is not valid file.",									// 12
 		self::UPLOAD_ERR_EMPTY_FILE			=> "Uploaded file is empty.",											// 13
 		self::UPLOAD_ERR_TOO_LARGE_FILE		=> "Uploaded file is too large.",										// 14
-		self::UPLOAD_ERR_MIN_SIZE			=> "One of uploaded files is too small. Min. required size is `{1}`.",	// 15
-		self::UPLOAD_ERR_MAX_SIZE			=> "One of uploaded files is too large. Max. allowed size is `{1}`.",	// 16
+		self::UPLOAD_ERR_MIN_SIZE			=> "One of uploaded files is too small. Min. required size is '{1}'.",	// 15
+		self::UPLOAD_ERR_MAX_SIZE			=> "One of uploaded files is too large. Max. allowed size is '{1}'.",	// 16
 		self::UPLOAD_ERR_NO_FILEINFO		=> "System extension for files recognition is missing.",				// 17
 		self::UPLOAD_ERR_NO_MIMES_EXT		=> "System extension for mime type(s) and extensions is missing.",		// 18
-		self::UPLOAD_ERR_UNKNOWN_ACCEPT		=> "Unknown accept attribute value found: `{1}`.",						// 19
-		self::UPLOAD_ERR_UNKNOWN_EXT		=> "Unknown file mimetype found for accept file extension: `{1}`.",		// 20
-		self::UPLOAD_ERR_UNKNOWN_MIME		=> "Unknown file extension found for accept file mimetype: `{1}`.",		// 21
-		self::UPLOAD_ERR_RESERVED_NAME		=> "Uploaded file name has system reserved name (`{1}`).",				// 22
-		self::UPLOAD_ERR_NOT_ACCEPTED		=> "Uploaded file is not in the expected file format (`{1}`).",			// 23
-		self::UPLOAD_ERR_FILE_BOMB			=> "Uploaded file has been evaluated as a potential file bomb (`{1}`).",// 24
+		self::UPLOAD_ERR_UNKNOWN_ACCEPT		=> "Unknown accept attribute value found: '{1}'.",						// 19
+		self::UPLOAD_ERR_UNKNOWN_EXT		=> "Unknown file mimetype found for accept file extension: '{1}'.",		// 20
+		self::UPLOAD_ERR_UNKNOWN_MIME		=> "Unknown file extension found for accept file mimetype: '{1}'.",		// 21
+		self::UPLOAD_ERR_RESERVED_NAME		=> "Uploaded file name has system reserved name ('{1}').",				// 22
+		self::UPLOAD_ERR_NOT_ACCEPTED		=> "Uploaded file is not in the expected file format ('{1}').",			// 23
+		self::UPLOAD_ERR_FILE_BOMB			=> "Uploaded file has been evaluated as a potential file bomb ('{1}').",// 24
 	];
 
 	/**
