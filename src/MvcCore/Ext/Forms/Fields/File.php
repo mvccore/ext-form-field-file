@@ -556,8 +556,8 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 */
 	protected function throwConfigException ($errorNumber, $errorMsgArgs = []) {
 		$errorMessage = static::$configErrorMessages[$errorNumber];
-		$formViewClass = $this->form->GetViewClass();
-		$errorMessage = $formViewClass::Format($errorMessage, $errorMsgArgs);
+		$viewClass = $this->form->GetViewClass();
+		$errorMessage = $viewClass::Format($errorMessage, $errorMsgArgs);
 		$this->throwNewInvalidArgumentException(
 			$errorMessage
 		);
