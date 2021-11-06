@@ -40,7 +40,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.1.8';
+	const VERSION = '5.1.9';
 
 	/**
 	 * Default allowed file name characters and characters groups for submit regular expression.
@@ -472,24 +472,6 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 		) $this->throwConfigException(
 			static::CONFIG_ERR_MISMATCH_MIN_MAX_SIZE
 		);
-	}
-
-	/**
-	 * Return field specific data for validator.
-	 * @param  array $fieldPropsDefaultValidValues 
-	 * @return array
-	 */
-	public function & GetValidatorData ($fieldPropsDefaultValidValues = []) {
-		$result = [
-			'multiple'				=> $this->multiple,
-			'accept'				=> $this->accept,
-			'allowedFileNameChars'	=> static::ALLOWED_FILE_NAME_CHARS_DEFAULT,
-			'minCount'				=> $this->minCount,
-			'maxCount'				=> $this->maxCount,
-			'minSize'				=> $this->minSize,
-			'maxSize'				=> $this->maxSize,
-		];
-		return $result;
 	}
 
 	/**
