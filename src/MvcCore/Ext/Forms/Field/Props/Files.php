@@ -447,16 +447,12 @@ trait Files {
 	 */
 	public function AddBombScanners () {
 		$args = func_get_args();
-		if (count($args) === 1 && is_array($args)) {
-			$bombScannerClasses = $args[0];
-		} else {
-			$bombScannerClasses = $args;
-		}
-		foreach ($bombScannerClasses as $bombScannerClass) {
-			if (!in_array($bombScannerClass, $this->bombScanners, TRUE)) {
+		$bombScannerClasses = (count($args) === 1 && is_array($args))
+			? $args[0]
+			: $args;
+		foreach ($bombScannerClasses as $bombScannerClass)
+			if (!in_array($bombScannerClass, $this->bombScanners, TRUE))
 				$this->bombScanners[] = $bombScannerClass;
-			}
-		}
 		return $this;
 	}
 	
