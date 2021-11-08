@@ -117,7 +117,8 @@ trait Bomb {
 
 		if (!$adapter::IsArchive()) 
 			return (object) [
-				'success' => TRUE // PNG images are OK, `TRUE` means no bomb
+				'success'	=> TRUE, // PNG images are OK, `TRUE` means no bomb
+				'message'	=> NULL,
 			];
 
 		// Complete archive uncompressed size:
@@ -126,7 +127,7 @@ trait Bomb {
 		// Complete ZIP file size from all ZIP archive items together:
 		if ($level === 0)
 			$recursiveInfo->allEntriesMaxSize = (
-				$compressedSize * $this->archiveMaxCompressPercentage
+				$compressedSize * (100.0 / floatval($this->archiveMaxCompressPercentage))
 			);
 
 		/**
@@ -143,14 +144,25 @@ trait Bomb {
 			$bombDetection->tooHighExpansion || 
 			$bombDetection->tooManyLevels ||
 			$bombDetection->tooManyFiles
-		) return (object) [ // `FALSE` means bomb
-			'success' => FALSE
-		];
+		) {
+			$msg = NULL;
+			if ($bombDetection->tooHighExpansion) 
+				$msg = static::GetErrorMessage(static::UPLOAD_ERR_FILE_BOMB_TOO_HIGH_COMPRESSION);
+			if ($bombDetection->tooManyLevels) 
+				$msg = static::GetErrorMessage(static::UPLOAD_ERR_FILE_BOMB_TOO_MANY_LEVELS);
+			if ($bombDetection->tooManyFiles) 
+				$msg = static::GetErrorMessage(static::UPLOAD_ERR_FILE_BOMB_TOO_MANY_FILES);
+			return (object) [ // `FALSE` means bomb
+				'success'	=> FALSE,
+				'message'	=> $msg,
+			];
+		}
 
 		// If all entries are emty files - it's not a bomb.
 		if ($recursiveInfo->entriesTotalSize === 0) 
 			return (object) [
-				'success' => TRUE // `TRUE` means no bomb
+				'success'	=> TRUE, // `TRUE` means no bomb
+				'message'	=> NULL,
 			];
 
 		/**
@@ -167,7 +179,10 @@ trait Bomb {
 		);
 
 		return (object) [
-			'success' => $result // `TRUE` means no bomb, `FALSE` means bomb
+			'success'	=> $result, // `TRUE` means no bomb, `FALSE` means bomb
+			'message'	=> !$result 
+				? static::GetErrorMessage(static::UPLOAD_ERR_FILE_BOMB_TOO_HIGH_COMPRESSION) 
+				: NULL,
 		];
 	}
 

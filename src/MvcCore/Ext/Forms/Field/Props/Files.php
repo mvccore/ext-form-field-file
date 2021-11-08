@@ -97,9 +97,9 @@ trait Files {
 	 * has more files inside than this number, it's 
 	 * proclaimed as archive bomb and it's not uploaded.
 	 * Default value is `1000`.
-	 * @var int
+	 * @var int|NULL
 	 */
-	protected $archiveMaxItems = 1000;
+	protected $archiveMaxItems = NULL;
 
 	/**
 	 * Maximum number of allowed ZIP archive levels inside.
@@ -108,19 +108,19 @@ trait Files {
 	 * level for nested ZIP archives. If Archive contains 
 	 * more levels than this, it's proclaimed as archive 
 	 * bomb and it's not uploaded. Default value is `3`.
-	 * @var int
+	 * @var int|NULL
 	 */
-	protected $archiveMaxLevels = 3;
+	protected $archiveMaxLevels = NULL;
 
 	/**
 	 * Maximum archive compression percentage.
 	 * If archive file has lower percentage size
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded. Default value is `10000`.
-	 * @var float
+	 * not uploaded. Default value is `5.0`.
+	 * @var float|NULL
 	 */
-	protected $archiveMaxCompressPercentage = 10.0;
+	protected $archiveMaxCompressPercentage = NULL;
 
 	/**
 	 * PNG image maximum width or maximum height.
@@ -128,21 +128,17 @@ trait Files {
 	 * those images could be used as ZIP bombs.
 	 * This limit helps to prevent file bombs 
 	 * based on PNG images.
-	 * @var int
+	 * @var int|NULL
 	 */
-	protected $pngImageMaxWidthHeight = 10000;
+	protected $pngImageMaxWidthHeight = NULL;
 
 	/**
 	 * Bomb scanner classes to scan uploaded files for file bombs.
 	 * All classes in this list must implement interface:
 	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
-	 * @var \string[]
+	 * @var \string[]|NULL
 	 */
-	protected $bombScanners = [
-		'\\MvcCore\\Ext\\Forms\\Validators\\Files\\Validations\\BombScanners\\ZipArchive',
-		'\\MvcCore\\Ext\\Forms\\Validators\\Files\\Validations\\BombScanners\\PngImage',
-		'\\MvcCore\\Ext\\Forms\\Validators\\Files\\Validations\\BombScanners\\GzArchive'
-	];
+	protected $bombScanners = NULL;
 
 	/**
 	 * Get list of allowed file mime-types or file extensions. 
@@ -391,11 +387,11 @@ trait Files {
 	 * If archive file has lower percentage size
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded.
-	 * @param  float $archiveMaxCompressPercentage Default `10.0`.
+	 * not uploaded. Default value is `5.0`.
+	 * @param  float $archiveMaxCompressPercentage Default `5.0`.
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
-	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0) {
+	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 5.0) {
 		$this->archiveMaxCompressPercentage = $archiveMaxCompressPercentage;
 		return $this;
 	}
@@ -405,7 +401,7 @@ trait Files {
 	 * If archive file has lower percentage size
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded.
+	 * not uploaded. Default value is `5.0`.
 	 * @return float
 	 */
 	public function GetArchiveMaxCompressPercentage () {
@@ -418,7 +414,7 @@ trait Files {
 	 * those images could be used as ZIP bombs.
 	 * This limit helps to prevent file bombs 
 	 * based on PNG images. Default value is `10000`.
-	 * @param  int $pngImageMaxWidthHeight Default `10.0`.
+	 * @param  int $pngImageMaxWidthHeight Default `10000`.
 	 * @return \MvcCore\Ext\Forms\Fields\File|\MvcCore\Ext\Forms\Validators\Files
 	 */
 	public function SetPngImageMaxWidthHeight ($pngImageMaxWidthHeight = 10000) {
@@ -465,7 +461,7 @@ trait Files {
 	 */
 	public function SetBombScanners () {
 		$args = func_get_args();
-		if (count($args) === 1 && is_array($args)) {
+		if (count($args) === 1 && is_array($args[0])) {
 			$this->bombScanners = $args[0];
 		} else {
 			$this->bombScanners = $args;

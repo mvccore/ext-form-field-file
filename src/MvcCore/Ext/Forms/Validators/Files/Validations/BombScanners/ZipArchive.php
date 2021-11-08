@@ -178,7 +178,7 @@ class ZipArchive implements \MvcCore\Ext\Forms\Validators\Files\Validations\IBom
 			return NULL;
 		$writePointer = fopen($destinationFullPath, 'w');
 		while (!feof($readPointer))
-			fwrite($writePointer, fread($readPointer, 131072));
+			fwrite($writePointer, fread($readPointer, 1048576)); // 1 MB
 		fclose($readPointer);
 		fclose($writePointer);
 		return $destinationFullPath;

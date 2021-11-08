@@ -217,18 +217,18 @@ interface IFile {
 	 * If archive file has lower percentage size
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded.
-	 * @param  float $archiveMaxCompressPercentage Default `10.0`.
+	 * not uploaded. Default value is `5.0`.
+	 * @param  float $archiveMaxCompressPercentage Default `5.0`.
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
-	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0);
+	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 5.0);
 	
 	/**
 	 * Get maximum archive compression percentage.
 	 * If archive file has lower percentage size
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded.
+	 * not uploaded. Default value is `5.0`.
 	 * @return float
 	 */
 	public function GetArchiveMaxCompressPercentage ();

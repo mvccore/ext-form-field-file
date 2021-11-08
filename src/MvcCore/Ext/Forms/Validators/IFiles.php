@@ -33,22 +33,25 @@ interface IFiles {
 	 */
 	const MVCCORE_EXT_TOOLS_MIMES_EXTS_CLASS = '\\MvcCore\\Ext\\Tools\\MimeTypesExtensions';
 	
-	const UPLOAD_ERR_MIN_FILES		=  9;
-	const UPLOAD_ERR_MAX_FILES		= 10;
-	const UPLOAD_ERR_NOT_POSTED		= 11; 
-	const UPLOAD_ERR_NOT_FILE		= 12;
-	const UPLOAD_ERR_EMPTY_FILE		= 13;
-	const UPLOAD_ERR_TOO_LARGE_FILE	= 14;
-	const UPLOAD_ERR_MIN_SIZE		= 15;
-	const UPLOAD_ERR_MAX_SIZE		= 16;
-	const UPLOAD_ERR_NO_FILEINFO	= 17;						
-	const UPLOAD_ERR_NO_MIMES_EXT	= 18;
-	const UPLOAD_ERR_UNKNOWN_ACCEPT	= 19;
-	const UPLOAD_ERR_UNKNOWN_EXT	= 20;
-	const UPLOAD_ERR_UNKNOWN_MIME	= 21;
-	const UPLOAD_ERR_RESERVED_NAME	= 22;
-	const UPLOAD_ERR_NOT_ACCEPTED	= 23;
-	const UPLOAD_ERR_FILE_BOMB		= 24;
+	const UPLOAD_ERR_MIN_FILES						=  9;
+	const UPLOAD_ERR_MAX_FILES						= 10;
+	const UPLOAD_ERR_NOT_POSTED						= 11; 
+	const UPLOAD_ERR_NOT_FILE						= 12;
+	const UPLOAD_ERR_EMPTY_FILE						= 13;
+	const UPLOAD_ERR_TOO_LARGE_FILE					= 14;
+	const UPLOAD_ERR_MIN_SIZE						= 15;
+	const UPLOAD_ERR_MAX_SIZE						= 16;
+	const UPLOAD_ERR_NO_FILEINFO					= 17;
+	const UPLOAD_ERR_NO_MIMES_EXT					= 18;
+	const UPLOAD_ERR_UNKNOWN_ACCEPT					= 19;
+	const UPLOAD_ERR_UNKNOWN_EXT					= 20;
+	const UPLOAD_ERR_UNKNOWN_MIME					= 21;
+	const UPLOAD_ERR_RESERVED_NAME					= 22;
+	const UPLOAD_ERR_NOT_ACCEPTED					= 23;
+	const UPLOAD_ERR_FILE_BOMB						= 24;
+	const UPLOAD_ERR_FILE_BOMB_TOO_HIGH_COMPRESSION	= 25;
+	const UPLOAD_ERR_FILE_BOMB_TOO_MANY_LEVELS		= 26;
+	const UPLOAD_ERR_FILE_BOMB_TOO_MANY_FILES		= 27;
 
 	/**
 	 * Set maximum number of allowed files count inside 
@@ -99,18 +102,18 @@ interface IFiles {
 	 * If archive file has lower percentage size
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded.
-	 * @param  float $archiveMaxCompressPercentage Default `10.0`.
+	 * not uploaded. Default value is `5.0`.
+	 * @param  float $archiveMaxCompressPercentage Default `5.0`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
-	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 10.0);
+	public function SetArchiveMaxCompressPercentage ($archiveMaxCompressPercentage = 5.0);
 	
 	/**
 	 * Get maximum archive compression percentage.
 	 * If archive file has lower percentage size
 	 * than all archive file items together, 
 	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded.
+	 * not uploaded. v
 	 * @return float
 	 */
 	public function GetArchiveMaxCompressPercentage ();
