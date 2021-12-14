@@ -22,14 +22,17 @@ namespace MvcCore\Ext\Forms\Validators;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class		Files 
 extends		\MvcCore\Ext\Forms\Validator
-implements	\MvcCore\Ext\Forms\Validators\IFiles,
-			\MvcCore\Ext\Forms\IValidator,
+implements	\MvcCore\Ext\Forms\IValidator,
 			\MvcCore\Ext\Forms\Fields\IMultiple,
-			\MvcCore\Ext\Forms\Fields\IFile {
+			\MvcCore\Ext\Forms\Validators\IFiles {
+	
+	#region traits
 
 	use \MvcCore\Ext\Forms\Field\Props\Multiple;
-	use \MvcCore\Ext\Forms\Field\Props\Files;
+	use \MvcCore\Ext\Forms\Field\Props\File;
 	
+	use \MvcCore\Ext\Forms\Validators\Files\ConfigProps;
+	use \MvcCore\Ext\Forms\Validators\Files\ConfigGettersSetters;
 	use \MvcCore\Ext\Forms\Validators\Files\CheckRequirements;
 	use \MvcCore\Ext\Forms\Validators\Files\CompleteFiles;
 	use \MvcCore\Ext\Forms\Validators\Files\ReadAccept;
@@ -38,39 +41,44 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	use \MvcCore\Ext\Forms\Validators\Files\Validations\MimeTypeAndExtension;
 	use \MvcCore\Ext\Forms\Validators\Files\Validations\Bomb;
 	
+	#endregion
+	
+	#region static properties
+
 	/**
 	 * Validation failure message template definitions.
 	 * @var array
 	 */
 	protected static $errorMessages = [
-		UPLOAD_ERR_OK									=> "There is no error, the file uploaded with success.",				// 0
-		UPLOAD_ERR_INI_SIZE								=> "Uploaded file exceeds maximum size to upload. ('{1}' bytes).",		// 1
+		UPLOAD_ERR_OK									=> "There is no error, the file uploaded with success.",						// 0
+		UPLOAD_ERR_INI_SIZE								=> "Uploaded file exceeds maximum size to upload. ('{1}' bytes).",				// 1
 		/** @bugfix: http://php.net/manual/en/features.file-upload.php#74692 */
-		//UPLOAD_ERR_FORM_SIZE							=> "Uploaded file exceeds max. size to upload: '{1}'.",					// 2
-		UPLOAD_ERR_PARTIAL								=> "Uploaded file was only partially uploaded.",						// 3
-		UPLOAD_ERR_NO_FILE								=> "No file was uploaded.",												// 4
-		UPLOAD_ERR_NO_TMP_DIR							=> "Missing a temporary folder for uploaded file.",						// 6
-		UPLOAD_ERR_CANT_WRITE							=> "Failed to write uploaded file to disk.",							// 7
-		UPLOAD_ERR_EXTENSION							=> "System extension stopped the file upload.",							// 8
-		self::UPLOAD_ERR_MIN_FILES						=> "Field allows to upload '{1}' file(s) at minimum.",					// 9
-		self::UPLOAD_ERR_MAX_FILES						=> "Field allows to upload '{1}' file(s) at maximum.",					// 10
-		self::UPLOAD_ERR_NOT_POSTED						=> "File wasn't uploaded via HTTP POST.",								// 11
-		self::UPLOAD_ERR_NOT_FILE						=> "Uploaded file is not valid file.",									// 12
-		self::UPLOAD_ERR_EMPTY_FILE						=> "Uploaded file is empty.",											// 13
-		self::UPLOAD_ERR_TOO_LARGE_FILE					=> "Uploaded file is too large.",										// 14
-		self::UPLOAD_ERR_MIN_SIZE						=> "One of uploaded files is too small. Min. required size is '{1}'.",	// 15
-		self::UPLOAD_ERR_MAX_SIZE						=> "One of uploaded files is too large. Max. allowed size is '{1}'.",	// 16
-		self::UPLOAD_ERR_NO_FILEINFO					=> "System extension for files recognition is missing.",				// 17
-		self::UPLOAD_ERR_NO_MIMES_EXT					=> "System extension for mime type(s) and extensions is missing.",		// 18
-		self::UPLOAD_ERR_UNKNOWN_ACCEPT					=> "Unknown accept attribute value found: '{1}'.",						// 19
-		self::UPLOAD_ERR_UNKNOWN_EXT					=> "Unknown file mimetype found for accept file extension: '{1}'.",		// 20
-		self::UPLOAD_ERR_UNKNOWN_MIME					=> "Unknown file extension found for accept file mimetype: '{1}'.",		// 21
-		self::UPLOAD_ERR_RESERVED_NAME					=> "Uploaded file name has system reserved name ('{1}').",				// 22
-		self::UPLOAD_ERR_NOT_ACCEPTED					=> "Uploaded file is not in the expected file format ('{1}').",			// 23
-		self::UPLOAD_ERR_FILE_BOMB						=> "Uploaded file has been evaluated as a potential file bomb ('{1}').",// 24
-		self::UPLOAD_ERR_FILE_BOMB_TOO_HIGH_COMPRESSION	=> "Uploaded file has to high compression.",							// 25
-		self::UPLOAD_ERR_FILE_BOMB_TOO_MANY_LEVELS		=> "Uploaded file archive has to many archive levels.",					// 26
-		self::UPLOAD_ERR_FILE_BOMB_TOO_MANY_FILES		=> "Uploaded file archive has to many files inside.",					// 27
+		//UPLOAD_ERR_FORM_SIZE							=> "Uploaded file exceeds max. size to upload: '{1}'.",							// 2
+		UPLOAD_ERR_PARTIAL								=> "Uploaded file was only partially uploaded.",								// 3
+		UPLOAD_ERR_NO_FILE								=> "No file was uploaded.",														// 4
+		UPLOAD_ERR_NO_TMP_DIR							=> "Missing a temporary folder for uploaded file.",								// 6
+		UPLOAD_ERR_CANT_WRITE							=> "Failed to write uploaded file to disk.",									// 7
+		UPLOAD_ERR_EXTENSION							=> "System extension stopped the file upload.",									// 8
+		self::UPLOAD_ERR_MIN_FILES						=> "Field allows to upload '{1}' file(s) at minimum.",							// 9
+		self::UPLOAD_ERR_MAX_FILES						=> "Field allows to upload '{1}' file(s) at maximum.",							// 10
+		self::UPLOAD_ERR_NOT_POSTED						=> "File wasn't uploaded via HTTP POST.",										// 11
+		self::UPLOAD_ERR_NOT_FILE						=> "Uploaded file is not valid file.",											// 12
+		self::UPLOAD_ERR_EMPTY_FILE						=> "Uploaded file is empty.",													// 13
+		self::UPLOAD_ERR_TOO_LARGE_FILE					=> "Uploaded file is too large.",												// 14
+		self::UPLOAD_ERR_MIN_SIZE						=> "One of uploaded files is too small. Min. required size is '{1}'.",			// 15
+		self::UPLOAD_ERR_MAX_SIZE						=> "One of uploaded files is too large. Max. allowed size is '{1}'.",			// 16
+		self::UPLOAD_ERR_NO_FILEINFO					=> "System extension for files recognition is missing.",						// 17
+		self::UPLOAD_ERR_NO_MIMES_EXT					=> "System extension for mime type(s) and extensions is missing.",				// 18
+		self::UPLOAD_ERR_UNKNOWN_ACCEPT					=> "Unknown accept attribute value found: '{1}'.",								// 19
+		self::UPLOAD_ERR_UNKNOWN_EXT					=> "Unknown file mimetype found for accept file extension: '{1}'.",				// 20
+		self::UPLOAD_ERR_UNKNOWN_MIME					=> "Unknown file extension found for accept file mimetype: '{1}'.",				// 21
+		self::UPLOAD_ERR_NO_NAME						=> "Uploaded file name is empty, it maybe contains only disallowed characters.",// 22
+		self::UPLOAD_ERR_RESERVED_NAME					=> "Uploaded file name has system reserved name ('{1}').",						// 23
+		self::UPLOAD_ERR_NOT_ACCEPTED					=> "Uploaded file is not in the expected file format ('{1}').",					// 24
+		self::UPLOAD_ERR_FILE_BOMB						=> "Uploaded file has been evaluated as a potential file bomb ('{1}').",		// 25
+		self::UPLOAD_ERR_FILE_BOMB_TOO_HIGH_COMPRESSION	=> "Uploaded file has to high compression.",									// 26
+		self::UPLOAD_ERR_FILE_BOMB_TOO_MANY_LEVELS		=> "Uploaded file archive has to many archive levels.",							// 27
+		self::UPLOAD_ERR_FILE_BOMB_TOO_MANY_FILES		=> "Uploaded file archive has to many files inside.",							// 28
 	];
 
 	/**
@@ -80,18 +88,15 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	protected static $fieldSpecificProperties = [
 		'multiple'						=> NULL,
 		'accept'						=> NULL,
-		'allowedFileNameChars'			=> \MvcCore\Ext\Forms\Fields\File::ALLOWED_FILE_NAME_CHARS_DEFAULT,
 		'minCount'						=> NULL,
 		'maxCount'						=> NULL,
 		'minSize'						=> NULL,
 		'maxSize'						=> NULL,
-		
-		'archiveMaxItems'				=> 1000,
-		'archiveMaxLevels'				=> 3,
-		'archiveMaxCompressPercentage'	=> 5.0,
-		'pngImageMaxWidthHeight'		=> 10000,
-		'bombScanners'					=> [],
 	];
+	
+	#endregion
+
+	#region instance properties
 
 	/**
 	 * Uploaded files collection completed from request object from global `$_FILES` array.
@@ -119,7 +124,10 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	 */
 	protected $uploadsTmpDir = NULL;
 
+	#endregion
 	
+	#region public instance methods
+
 	/**
 	 * Create files validator instance.
 	 * 
@@ -128,41 +136,28 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	 * values which you want to configure, presented 
 	 * in camel case properties names syntax.
 	 * 
-	 * @param  \string[] $accept
-	 * List of allowed file mimetypes or file extensions. 
-	 * All defined file mimetypes are checked with `finfo` PHP extension and checked by
-	 * allowed file extensions for defined mimetype.
-	 * All defined file extensions are translated internally on server side into mimetypes,
-	 * then checked with `finfo` PHP extension and checked by
-	 * allowed file extensions for defined mimetype.
-	 * Example: `$this->accept = ['image/*', 'audio/mp3', '.docx'];`
+	 * @param  string    $allowedFileNameCharsHandler
+	 * Custom handler to sanitize uploaded file name characters.
+	 * This handler has priority before property `allowedFileNameChars`,
+	 * so if the handler is defined, processing by allowed file name 
+	 * characters is not executed.
+	 * It's necessary to define callable with first argument 
+	 * to be raw uploaded file name string and result to be 
+	 * sanitized file name string. String URI decoding, double dots
+	 * or special system characters removing, special system file 
+	 * names and other cases is not necessary to handle, those
+	 * validations are processed after this custom handler.
 	 * @param  string    $allowedFileNameChars
 	 * Allowed file name characters and characters groups for submit regular expression.
-	 * All regular expression special characters will be escaped by `addcslashes()` 
-	 * function to create proper regular expression pattern to keep only characters 
-	 * and characters groups presented in this variable. If there are not defined any 
-	 * characters, there is used in submit filename sanitization PHP constant: 
-	 * `static::ALLOWED_FILE_NAME_CHARS_DEFAULT`;
-	 * @param  int       $minCount
-	 * Minimum uploaded files count. `NULL` by default.
-	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
-	 * Attribute is not used on client side by default, but you can do it, it's
-	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param  int       $maxCount
-	 * Maximum uploaded files count. `NULL` by default.
-	 * This attribute is not HTML5, it's rendered as `data-max-count="..."`.
-	 * Attribute is not used on client side by default, but you can do it, it's
-	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param  int       $minSize
-	 * Minimum uploaded file size for one uploaded item in bytes. `NULL` by default.
-	 * This attribute is not HTML5, it's rendered as `data-min-size="..."`.
-	 * Attribute is not used on client side by default, but you can do it, it's
-	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param  int       $maxSize
-	 * Maximum uploaded file size for one uploaded item in bytes. `NULL` by default.
-	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
-	 * Attribute is not used on client side by default, but you can do it, it's
-	 * only checked if attribute is not `NULL` in submit processing.
+	 * Custom handler in property `allowedFileNameCharsHandler` has priority before 
+	 * this, so if the handler is defined, processing by allowed file name 
+	 * characters is not executed.
+	 * All regular expression special characters will be automatically escaped by 
+	 * `addcslashes()` function to create proper regular expression pattern 
+	 * to keep only characters and characters groups presented in this variable. 
+	 * If there are not defined any characters, there is used in submit filename 
+	 * sanitization PHP constant: `static::ALLOWED_FILE_NAME_CHARS_DEFAULT`;
+	 * 
 	 * @param  int       $archiveMaxItems
 	 * Maximum number of allowed files count inside 
 	 * single uploaded archive file. If uploaded archive 
@@ -198,13 +193,8 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 	 */
 	public function __construct(
 		array $cfg = [],
-		$multiple = NULL,
-		array $accept = [],
+		$allowedFileNameCharsHandler = NULL,
 		$allowedFileNameChars = NULL,
-		$minCount = NULL,
-		$maxCount = NULL,
-		$minSize = NULL,
-		$maxSize = NULL,
 		$archiveMaxItems = NULL,
 		$archiveMaxLevels = NULL,
 		$archiveMaxCompressPercentage = NULL,
@@ -214,7 +204,6 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 		$this->consolidateCfg($cfg, func_get_args(), func_num_args());
 		parent::__construct($cfg);
 	}
-
 
 	/**
 	 * Complete uploaded files temporary directory.
@@ -277,6 +266,10 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 		return $this->files;
 	}
 
+	#endregion
+	
+	#region protected instance methods
+
 	/**
 	 * Add error message arguments for specific PHP build-in errors,
 	 * add error message into form session namespace, remove all tmp files and return NULL.
@@ -312,4 +305,6 @@ implements	\MvcCore\Ext\Forms\Validators\IFiles,
 		}
 		return NULL;
 	}
+	
+	#endregion
 }

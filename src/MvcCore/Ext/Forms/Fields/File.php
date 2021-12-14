@@ -23,43 +23,30 @@ namespace MvcCore\Ext\Forms\Fields;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class		File 
 extends		\MvcCore\Ext\Forms\Field
-implements	\MvcCore\Ext\Forms\Fields\IVisibleField, 
+implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
+			\MvcCore\Ext\Forms\Fields\IVisibleField,
 			\MvcCore\Ext\Forms\Fields\ILabel,
 			\MvcCore\Ext\Forms\Fields\IMultiple,
-			\MvcCore\Ext\Forms\Fields\IFile,
-			\MvcCore\Ext\Forms\Fields\IAlwaysValidate {
+			\MvcCore\Ext\Forms\Fields\IFile {
+
+	#region traits
 
 	use \MvcCore\Ext\Forms\Field\Props\VisibleField;
 	use \MvcCore\Ext\Forms\Field\Props\Label;
 	use \MvcCore\Ext\Forms\Field\Props\Multiple;
-	use \MvcCore\Ext\Forms\Field\Props\Files;
+	use \MvcCore\Ext\Forms\Field\Props\File;
 	use \MvcCore\Ext\Forms\Field\Props\Wrapper;
 	
+	#endregion
+
 	/**
 	 * MvcCore Extension - Form - Field - File - version:
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.1.10';
+	const VERSION = '5.1.11';
 
-	/**
-	 * Default allowed file name characters and characters groups for submit regular expression.
-	 * All regular expression special characters will be escaped by `addcslashes()` 
-	 * function to create proper regular expression pattern to keep only characters 
-	 * and characters groups presented in this constant. This constant is used only
-	 * if there is not specified any custom characters and characters groups by method(s): 
-	 * `$field->SetAllowedFileNameChars('...');` or  `$validator->SetAllowedFileNameChars('...');`.
-	 */
-	const ALLOWED_FILE_NAME_CHARS_DEFAULT = '-a-zA-Z0-9@,._ ()+={}[]\'';
-	
-	const CONFIG_ERR_NO_ACCEPT_PROPERTY		= 100;
-	const CONFIG_ERR_WRONG_FORM_ENCTYPE		= 101;
-	const CONFIG_ERR_UPLOADS_NOT_ALOWED		= 102;
-	const CONFIG_ERR_MAX_UPLOAD_SIZE_LOWER	= 103;
-	const CONFIG_ERR_MAX_POST_SIZE_LOWER	= 104;
-	const CONFIG_ERR_MAX_FILES_COUNT_LOWER	= 105;
-	const CONFIG_ERR_MISMATCH_MIN_MAX_COUNT = 106;
-	const CONFIG_ERR_MISMATCH_MIN_MAX_SIZE	= 107;
+	#region static properties
 
 	/**
 	 * Configuration error messages.
@@ -75,6 +62,10 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 		self::CONFIG_ERR_MISMATCH_MIN_MAX_COUNT => "Mismatch in min. and max. uploaded files count in field configuration.",
 		self::CONFIG_ERR_MISMATCH_MIN_MAX_SIZE	=> "Mismatch in min. and max. uploaded files sizes in field configuration.",
 	];
+	
+	#endregion
+
+	#region instance properties
 
 	/**
 	 * Possible values: `file`.
@@ -89,7 +80,10 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * @var \string[]|\MvcCore\Ext\Forms\Validator[]
 	 */
 	protected $validators = ['Files'];
+	
+	#endregion
 
+	#region public instance methods
 
 	/**
 	 * Create new form `<input type="file">` control instance.
@@ -254,13 +248,6 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * Boolean attribute indicates that capture of media directly from the 
 	 * device's sensors using a media capture mechanism is preferred, 
 	 * such as a webcam or microphone. This HTML attribute is used on mobile devices.
-	 * @param  string       $allowedFileNameChars
-	 * Allowed file name characters and characters groups for submit regular expression.
-	 * All regular expression special characters will be escaped by `addcslashes()` 
-	 * function to create proper regular expression pattern to keep only characters 
-	 * and characters groups presented in this variable. If there are not defined any 
-	 * characters, there is used in submit filename sanitization PHP constant: 
-	 * `static::ALLOWED_FILE_NAME_CHARS_DEFAULT`;
 	 * @param  int          $minCount
 	 * Minimum uploaded files count. `NULL` by default.
 	 * This attribute is not HTML5, it's rendered as `data-min-count="..."`.
@@ -281,35 +268,6 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 	 * This attribute is not HTML5, it's rendered as `data-max-size="..."`.
 	 * Attribute is not used on client side by default, but you can do it, it's
 	 * only checked if attribute is not `NULL` in submit processing.
-	 * @param  int          $archiveMaxItems
-	 * Maximum number of allowed files count inside 
-	 * single uploaded archive file. If uploaded archive 
-	 * has more files inside than this number, it's 
-	 * proclaimed as archive bomb and it's not uploaded.
-	 * Default value is `1000`.
-	 * @param  int          $archiveMaxLevels
-	 * Maximum number of allowed ZIP archive levels inside.
-	 * If uploaded archive contains another zip archive and
-	 * those archive another and another, this is maximum
-	 * level for nested ZIP archives. If Archive contains 
-	 * more levels than this, it's proclaimed as archive 
-	 * bomb and it's not uploaded. Default value is `3`.
-	 * @param  float        $archiveMaxCompressPercentage
-	 * Maximum archive compression percentage.
-	 * If archive file has lower percentage size
-	 * than all archive file items together, 
-	 * it's proclaimed as archive bomb and it's 
-	 * not uploaded. Default value is `10000`.
-	 * @param  int          $pngImageMaxWidthHeight
-	 * PNG image maximum width or maximum height.
-	 * PNG images use ZIP compression and that's why 
-	 * those images could be used as ZIP bombs.
-	 * This limit helps to prevent file bombs 
-	 * based on PNG images.
-	 * @param  \string[]    $bombScanners
-	 * Bomb scanner classes to scan uploaded files for file bombs.
-	 * All classes in this list must implement interface:
-	 * `\MvcCore\Ext\Forms\Validators\Files\Validations\IBombScanner`.
 	 * 
 	 * @param  string       $wrapper
 	 * Html code wrapper, wrapper has to contain replacement in string 
@@ -350,17 +308,11 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 
 		array $accept = [],
 		$capture = NULL,
-		$allowedFileNameChars = NULL,
 		$minCount = NULL,
 		$maxCount = NULL,
 		$minSize = NULL,
 		$maxSize = NULL,
-		$archiveMaxItems = NULL,
-		$archiveMaxLevels = NULL,
-		$archiveMaxCompressPercentage = NULL,
-		$pngImageMaxWidthHeight = NULL,
-		array $bombScanners = [],
-
+		
 		$wrapper = NULL
 	){
 		$this->consolidateCfg($cfg, func_get_args(), func_num_args());
@@ -389,6 +341,66 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 		return $this;
 	}
 	
+	/**
+	 * This INTERNAL method is called from `\MvcCore\Ext\Form` just before
+	 * field is naturally rendered. It sets up field for rendering process.
+	 * Do not use this method event if you don't develop any form field.
+	 * - Set up field render mode if not defined.
+	 * - Translate label text if necessary.
+	 * - Set up tab-index if necessary.
+	 * @return void
+	 */
+	public function PreDispatch () {
+		parent::PreDispatch();
+		$this->preDispatchTabIndex();
+		$this->checkConfiguration();
+	}
+
+	/**
+	 * This INTERNAL method is called from `\MvcCore\Ext\Forms\Field\Rendering` 
+	 * in rendering process. Do not use this method even if you don't develop any form field.
+	 * 
+	 * Render control tag only without label or specific errors.
+	 * @return string
+	 */
+	public function RenderControl () {
+		if ($this->minCount !== NULL) 
+			$this->SetControlAttr('data-min-count', $this->minCount);
+		if ($this->maxCount !== NULL) 
+			$this->SetControlAttr('data-max-count', $this->maxCount);
+		if ($this->minSize !== NULL) 
+			$this->SetControlAttr('data-min-size', $this->minSize);
+		if ($this->maxSize !== NULL) 
+			$this->SetControlAttr('data-max-size', $this->maxSize);
+		$attrsStr = $this->renderControlAttrsWithFieldVars([
+			'accept',
+			'capture',
+		]);
+		$attrsStrSep = strlen($attrsStr) > 0 ? ' ' : '';
+		if ($this->multiple) {
+			$attrsStr .= $attrsStrSep . 'multiple="multiple"';
+			$attrsStrSep = ' ';
+		}
+		if (!$this->form->GetFormTagRenderingStatus()) {
+			$attrsStr .= $attrsStrSep . 'form="' . $this->form->GetId() . '"';
+		}
+		$formViewClass = $this->form->GetViewClass();
+		/** @var \stdClass $templates */
+		$templates = static::$templates;
+		$result = $formViewClass::Format($templates->control, [
+			'id'		=> $this->id,
+			'name'		=> $this->name . ($this->multiple ? '[]' : ''),
+			'type'		=> $this->type,
+			'value'		=> '',
+			'attrs'		=> strlen($attrsStr) > 0 ? ' ' . $attrsStr : '',
+		]);
+		return $this->renderControlWrapper($result);
+	}
+
+	#endregion
+
+	#region protected instance methods
+
 	/**
 	 * Check configuration against PHP ini 
 	 * values and between each other.
@@ -473,63 +485,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 			static::CONFIG_ERR_MISMATCH_MIN_MAX_SIZE
 		);
 	}
-
-	/**
-	 * This INTERNAL method is called from `\MvcCore\Ext\Form` just before
-	 * field is naturally rendered. It sets up field for rendering process.
-	 * Do not use this method event if you don't develop any form field.
-	 * - Set up field render mode if not defined.
-	 * - Translate label text if necessary.
-	 * - Set up tab-index if necessary.
-	 * @return void
-	 */
-	public function PreDispatch () {
-		parent::PreDispatch();
-		$this->preDispatchTabIndex();
-		$this->checkConfiguration();
-	}
-
-	/**
-	 * This INTERNAL method is called from `\MvcCore\Ext\Forms\Field\Rendering` 
-	 * in rendering process. Do not use this method even if you don't develop any form field.
-	 * 
-	 * Render control tag only without label or specific errors.
-	 * @return string
-	 */
-	public function RenderControl () {
-		if ($this->minCount !== NULL) 
-			$this->SetControlAttr('data-min-count', $this->minCount);
-		if ($this->maxCount !== NULL) 
-			$this->SetControlAttr('data-max-count', $this->maxCount);
-		if ($this->minSize !== NULL) 
-			$this->SetControlAttr('data-min-size', $this->minSize);
-		if ($this->maxSize !== NULL) 
-			$this->SetControlAttr('data-max-size', $this->maxSize);
-		$attrsStr = $this->renderControlAttrsWithFieldVars([
-			'accept',
-			'capture',
-		]);
-		$attrsStrSep = strlen($attrsStr) > 0 ? ' ' : '';
-		if ($this->multiple) {
-			$attrsStr .= $attrsStrSep . 'multiple="multiple"';
-			$attrsStrSep = ' ';
-		}
-		if (!$this->form->GetFormTagRenderingStatus()) {
-			$attrsStr .= $attrsStrSep . 'form="' . $this->form->GetId() . '"';
-		}
-		$formViewClass = $this->form->GetViewClass();
-		/** @var \stdClass $templates */
-		$templates = static::$templates;
-		$result = $formViewClass::Format($templates->control, [
-			'id'		=> $this->id,
-			'name'		=> $this->name . ($this->multiple ? '[]' : ''),
-			'type'		=> $this->type,
-			'value'		=> '',
-			'attrs'		=> strlen($attrsStr) > 0 ? ' ' . $attrsStr : '',
-		]);
-		return $this->renderControlWrapper($result);
-	}
-
+	
 	/**
 	 * Throw an configuration exception by given error number.
 	 * @param  int   $errorNumber
@@ -544,4 +500,7 @@ implements	\MvcCore\Ext\Forms\Fields\IVisibleField,
 			$errorMessage
 		);
 	}
+
+	#endregion
+
 }
