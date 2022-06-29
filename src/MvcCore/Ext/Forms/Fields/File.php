@@ -372,7 +372,7 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 			$this->SetControlAttr('data-min-size', $this->minSize);
 		if ($this->maxSize !== NULL) 
 			$this->SetControlAttr('data-max-size', $this->maxSize);
-		$attrsStr = $this->renderControlAttrsWithFieldVars([
+		$attrsStr = $this->RenderControlAttrsWithFieldVars([
 			'accept',
 			'capture',
 		]);
