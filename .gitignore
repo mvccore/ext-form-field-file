@@ -54,9 +54,9 @@ Temporary Items
 *.phpproj
 .vs
 *.phpproj.user
-composer.dev.json
-composer.dev.lock
-tests/composer.dev.json
-tests/composer.dev.lock
+composer.dev.*
+
+tests/composer.dev.*
+tests/
 tests/vendor
-tests/composer-update-dev.cmd
+tests/composer-update-dev.*
