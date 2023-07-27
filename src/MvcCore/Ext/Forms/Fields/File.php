@@ -44,7 +44,7 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.1.13';
+	const VERSION = '5.2.0';
 
 	#region static properties
 
@@ -372,18 +372,16 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 			$this->SetControlAttr('data-min-size', $this->minSize);
 		if ($this->maxSize !== NULL) 
 			$this->SetControlAttr('data-max-size', $this->maxSize);
-		$attrsStr = $this->RenderControlAttrsWithFieldVars([
-			'accept',
-			'capture',
-		]);
-		$attrsStrSep = strlen($attrsStr) > 0 ? ' ' : '';
-		if ($this->multiple) {
-			$attrsStr .= $attrsStrSep . 'multiple="multiple"';
-			$attrsStrSep = ' ';
-		}
-		if (!$this->form->GetFormTagRenderingStatus()) {
-			$attrsStr .= $attrsStrSep . 'form="' . $this->form->GetId() . '"';
-		}
+		$attrsStrItems = [
+			$this->RenderControlAttrsWithFieldVars([
+				'accept',
+				'capture',
+			])
+		];
+		if ($this->multiple)
+			$attrsStrItems[] = 'multiple="multiple"';
+		if (!$this->form->GetFormTagRenderingStatus())
+			$attrsStrItems[] = 'form="' . $this->form->GetId() . '"';
 		$formViewClass = $this->form->GetViewClass();
 		/** @var \stdClass $templates */
 		$templates = static::$templates;
@@ -392,7 +390,7 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 			'name'		=> $this->name . ($this->multiple ? '[]' : ''),
 			'type'		=> $this->type,
 			'value'		=> '',
-			'attrs'		=> strlen($attrsStr) > 0 ? ' ' . $attrsStr : '',
+			'attrs'		=> count($attrsStrItems) > 0 ? ' ' . implode(' ', $attrsStrItems) : '',
 		]);
 		return $this->renderControlWrapper($result);
 	}
