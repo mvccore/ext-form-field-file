@@ -83,7 +83,7 @@ trait File {
 
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return \string[]
 	 */
 	public function GetAccept () {
@@ -91,7 +91,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  \string[] $accept 
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
@@ -101,7 +101,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return string|NULL
 	 */
 	public function GetCapture () {
@@ -109,7 +109,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  string|NULL $capture 
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
@@ -119,7 +119,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return int|NULL
 	 */
 	public function GetMinCount () {
@@ -127,7 +127,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  int|NULL $minCount
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
@@ -137,7 +137,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return int|NULL
 	 */
 	public function GetMaxCount () {
@@ -145,7 +145,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  int|NULL $maxCount
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
@@ -155,7 +155,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return int|NULL
 	 */
 	public function GetMinSize () {
@@ -163,7 +163,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  int|string|NULL $minSize
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */
@@ -176,7 +176,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return int|NULL
 	 */
 	public function GetMaxSize () {
@@ -184,7 +184,7 @@ trait File {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  int|string|NULL $maxSize
 	 * @return \MvcCore\Ext\Forms\Fields\File
 	 */

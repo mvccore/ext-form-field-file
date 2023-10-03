@@ -19,7 +19,7 @@ namespace MvcCore\Ext\Forms\Validators\Files;
 trait ConfigGettersSetters {
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return callable|NULL
 	 */
 	public function GetAllowedFileNameCharsHandler () {
@@ -27,7 +27,7 @@ trait ConfigGettersSetters {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  callable|NULL $allowedFileNameCharsHandler
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
@@ -38,7 +38,7 @@ trait ConfigGettersSetters {
 
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return string|NULL
 	 */
 	public function GetAllowedFileNameChars () {
@@ -46,7 +46,7 @@ trait ConfigGettersSetters {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  string|NULL $allowedFileNameChars
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
@@ -57,7 +57,7 @@ trait ConfigGettersSetters {
 
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  int $archiveMaxItems Default `1000`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
@@ -67,7 +67,7 @@ trait ConfigGettersSetters {
 	}
 	
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return int
 	 */
 	public function GetArchiveMaxItems () {
@@ -76,7 +76,7 @@ trait ConfigGettersSetters {
 
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  int $archiveMaxLevels Default `3`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
@@ -86,7 +86,7 @@ trait ConfigGettersSetters {
 	}
 	
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return int
 	 */
 	public function GetArchiveMaxLevels () {
@@ -95,7 +95,7 @@ trait ConfigGettersSetters {
 
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  float $archiveMaxCompressPercentage Default `5.0`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
@@ -105,7 +105,7 @@ trait ConfigGettersSetters {
 	}
 	
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return float
 	 */
 	public function GetArchiveMaxCompressPercentage () {
@@ -114,7 +114,7 @@ trait ConfigGettersSetters {
 
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  int $pngImageMaxWidthHeight Default `10000`.
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
@@ -124,7 +124,7 @@ trait ConfigGettersSetters {
 	}
 	
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return int
 	 */
 	public function GetPngImageMaxWidthHeight () {
@@ -133,7 +133,7 @@ trait ConfigGettersSetters {
 
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  \string[] $bombScannerClasses,...
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
@@ -151,7 +151,7 @@ trait ConfigGettersSetters {
 	}
 
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @return \string[]|NULL
 	 */
 	public function GetBombScanners () {
@@ -159,7 +159,7 @@ trait ConfigGettersSetters {
 	}
 	
 	/**
-	 * @inheritDocs
+	 * @inheritDoc
 	 * @param  \string[] $bombScannerClasses
 	 * @return \MvcCore\Ext\Forms\Validators\Files
 	 */
