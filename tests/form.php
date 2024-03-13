@@ -44,7 +44,7 @@ class MicroApp {
 			->SetResponse($res)
 			->SetRouter($router);
 		try {
-			$ctrl->Dispatch($action . 'Action');
+			$ctrl->Dispatch($action);
 			$ctrl->Terminate();
 		} catch (\Throwable $e) {
 			\MvcCore\Debug::Exception($e);
