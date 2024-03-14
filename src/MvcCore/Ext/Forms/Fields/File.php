@@ -44,7 +44,7 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.2.1';
+	const VERSION = '5.2.2';
 
 	#region static properties
 
