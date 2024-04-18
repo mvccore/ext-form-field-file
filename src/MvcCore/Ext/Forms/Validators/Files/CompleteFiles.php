@@ -26,14 +26,13 @@ trait CompleteFiles {
 	protected function completeFiles () {
 		
 		$this->files = [];
-		$filesFieldItems = $this->form
-			->GetRequest()
-			->GetFile($this->field->GetName());
 		
-		if (!$filesFieldItems) 
+		$submitData = $this->completeSubmitData();
+
+		if (!$submitData) 
 			return NULL;
 
-		$this->completeFilesArray($filesFieldItems);
+		$this->completeFilesArray($submitData);
 		
 		$filesCount = count($this->files);
 		
@@ -51,6 +50,16 @@ trait CompleteFiles {
 			return TRUE;
 		
 		return $this->handleUploadError(UPLOAD_ERR_NO_FILE);
+	}
+
+	/**
+	 * Complete submit data (usually from PHP superglobal varialbe `$_FILES`).
+	 * @return array<string,string|array<int,string>>
+	 */
+	protected function completeSubmitData () {
+		return $this->form
+			->GetRequest()
+			->GetFile($this->field->GetName());
 	}
 
 	/**

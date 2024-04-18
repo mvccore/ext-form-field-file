@@ -68,7 +68,7 @@ implements	\MvcCore\Ext\Forms\IValidator,
 		self::UPLOAD_ERR_MIN_SIZE						=> "One of uploaded files is too small. Min. required size is '{1}'.",			// 15
 		self::UPLOAD_ERR_MAX_SIZE						=> "One of uploaded files is too large. Max. allowed size is '{1}'.",			// 16
 		self::UPLOAD_ERR_NO_FILEINFO					=> "System extension for files recognition is missing.",						// 17
-		self::UPLOAD_ERR_NO_MIMES_EXT					=> "System extension for mime type(s) and extensions is missing.",				// 18
+		self::UPLOAD_ERR_NO_MIMES_EXT					=> "System extension `{1}` for mime type(s) and extensions is missing.",		// 18
 		self::UPLOAD_ERR_UNKNOWN_ACCEPT					=> "Unknown accept attribute value found: '{1}'.",								// 19
 		self::UPLOAD_ERR_UNKNOWN_EXT					=> "Unknown file mimetype found for accept file extension: '{1}'.",				// 20
 		self::UPLOAD_ERR_UNKNOWN_MIME					=> "Unknown file extension found for accept file mimetype: '{1}'.",				// 21
@@ -284,8 +284,10 @@ implements	\MvcCore\Ext\Forms\IValidator,
 			$form = $this->form;
 			// `post_max_size` is always handled at submit process begin.
 			$errorMsgArgs = [
-				$form::GetPhpIniSizeLimit('upload_max_filesize')
+				$form->GetPhpIniSizeLimit('upload_max_filesize')
 			];
+		} else if ($errorNumber === self::UPLOAD_ERR_NO_MIMES_EXT) {
+			$errorMsgArgs = [self::MVCCORE_EXT_TOOLS_MIMES_EXTS_PKG];
 		}
 		$this->field->AddValidationError(
 			static::GetErrorMessage((int) $errorNumber), 

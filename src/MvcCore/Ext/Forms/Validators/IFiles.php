@@ -58,12 +58,18 @@ interface IFiles {
 	const WEB_RESERVED_FILENAMES = '.htaccess|.htpasswd|web.config|.user.ini';
 
 	/**
-	 * MvcCore extension class nam to get 
-	 * mimetype by file extension and backwards.
+	 * MvcCore extension class to get mimetype by file extension and backwards.
 	 * @see https://github.com/mvccore/ext-tool-mimetype-extension
 	 * @var string
 	 */
 	const MVCCORE_EXT_TOOLS_MIMES_EXTS_CLASS = '\\MvcCore\\Ext\\Tools\\MimeTypesExtensions';
+
+	/**
+	 * MvcCore extension name to get mimetype by file extension and backwards.
+	 * @see https://github.com/mvccore/ext-tool-mimetype-extension
+	 * @var string
+	 */
+	const MVCCORE_EXT_TOOLS_MIMES_EXTS_PKG = 'mvccore/ext-tool-mimetype-extension';
 	
 	const UPLOAD_ERR_MIN_FILES						=  9;
 	const UPLOAD_ERR_MAX_FILES						= 10;

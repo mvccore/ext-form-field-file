@@ -44,7 +44,7 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.2.2';
+	const VERSION = '5.2.3';
 
 	#region static properties
 
@@ -407,18 +407,50 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 	 * @return void
 	 */
 	protected function checkConfiguration () {
+		$this
+			->checkConfigurationAccept()
+			->checkConfigurationFormEnctype()
+			->checkConfigurationFileUploads()
+			->checkConfigurationMaxSize()
+			->checkConfigurationMaxFiles()
+			->checkConfigurationMinMaxCount()
+			->checkConfigurationMinMaxSize();
+	}
+
+	/**
+	 * Check accept attribute.
+	 * @throws \InvalidArgumentException
+	 * @return \MvcCore\Ext\Forms\Fields\File
+	 */
+	protected function checkConfigurationAccept () {
 		if ($this->accept === NULL) 
 			$this->throwConfigException(
 				static::CONFIG_ERR_NO_ACCEPT_PROPERTY
 			);
+		return $this;
+	}
 
+	/**
+	 * Check form enctype attribute.
+	 * @throws \InvalidArgumentException
+	 * @return \MvcCore\Ext\Forms\Fields\File
+	 */
+	protected function checkConfigurationFormEnctype () {
 		$multipartFormEnctype = \MvcCore\Ext\IForm::ENCTYPE_MULTIPART;
 		if ($this->form->GetEnctype() !== $multipartFormEnctype) 
 			$this->throwConfigException(
 				static::CONFIG_ERR_WRONG_FORM_ENCTYPE,
 				[$multipartFormEnctype]
 			);
+		return $this;
+	}
 
+	/**
+	 * Check PHP ini `file_uploads` allowed.
+	 * @throws \InvalidArgumentException
+	 * @return \MvcCore\Ext\Forms\Fields\File
+	 */
+	protected function checkConfigurationFileUploads () {
 		$rawFileUploads = @ini_get("file_uploads");
 		if (
 			!$rawFileUploads || 
@@ -426,7 +458,15 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 		) $this->throwConfigException(
 			static::CONFIG_ERR_UPLOADS_NOT_ALOWED
 		);
+		return $this;
+	}
 
+	/**
+	 * Check PHP ini `upload_max_filesize` and `post_max_size` against maxSize attribute.
+	 * @throws \InvalidArgumentException
+	 * @return \MvcCore\Ext\Forms\Fields\File
+	 */
+	protected function checkConfigurationMaxSize () {
 		if ($this->maxSize !== NULL) {
 			$maxIniFileSize = $this->form->GetPhpIniSizeLimit(
 				"upload_max_filesize"
@@ -450,7 +490,15 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 					static::CONFIG_ERR_MAX_POST_SIZE_LOWER
 				);
 		}
+		return $this;
+	}
 
+	/**
+	 * Check PHP ini `max_file_uploads` against maxCount attribute.
+	 * @throws \InvalidArgumentException
+	 * @return \MvcCore\Ext\Forms\Fields\File
+	 */
+	protected function checkConfigurationMaxFiles () {
 		if ($this->multiple) {
 			$maxFiles = $this->form->GetPhpIniSizeLimit(
 				"max_file_uploads"
@@ -466,7 +514,15 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 				static::CONFIG_ERR_MAX_FILES_COUNT_LOWER
 			);
 		}
+		return $this;
+	}
 
+	/**
+	 * Check minCount and maxCount attributes against each other.
+	 * @throws \InvalidArgumentException
+	 * @return \MvcCore\Ext\Forms\Fields\File
+	 */
+	protected function checkConfigurationMinMaxCount () {
 		if (
 			$this->minCount !== NULL && 
 			$this->maxCount &&
@@ -474,7 +530,15 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 		) $this->throwConfigException(
 			static::CONFIG_ERR_MISMATCH_MIN_MAX_COUNT
 		);
+		return $this;
+	}
 
+	/**
+	 * Check minSize and maxSize attributes against each other.
+	 * @throws \InvalidArgumentException
+	 * @return \MvcCore\Ext\Forms\Fields\File
+	 */
+	protected function checkConfigurationMinMaxSize () {
 		if (
 			$this->minSize !== NULL && 
 			$this->maxSize &&
@@ -482,6 +546,7 @@ implements	\MvcCore\Ext\Forms\Fields\IAlwaysValidate,
 		) $this->throwConfigException(
 			static::CONFIG_ERR_MISMATCH_MIN_MAX_SIZE
 		);
+		return $this;
 	}
 	
 	/**
