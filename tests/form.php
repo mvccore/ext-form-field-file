@@ -63,9 +63,9 @@ class Ctrl extends \MvcCore\Controller {
 		$form = $this->getForm();
 		list($result, $values, $errors) = $form->Submit();
 		if ($result === \MvcCore\Ext\IForm::RESULT_SUCCESS) {
-			x($values['avatar']);
+			//x($values['avatar']);
 			$avatar = current($values['avatar']);
-			$targetFullPath = $this->request->GetAppRoot() . '/Var/' . $avatar->name;
+			$targetFullPath = $this->application->GetPathVar(TRUE) . '/' . $avatar->name;
 			if (file_exists($targetFullPath))
 				unlink($targetFullPath);
 			move_uploaded_file(
